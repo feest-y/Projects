@@ -1,4 +1,5 @@
-﻿int main()
+﻿#include<iostream>
+int main()
 {
 	int a, b;
 	scanf_s("%d", &a);

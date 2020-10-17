@@ -1,15 +1,14 @@
-﻿#include <time.h>
+﻿#include<iostream>
+#include <time.h>
 int main()
 {
-	long int a;
-	unsigned long long int b = 0;
+	unsigned long long a = 0;
+	unsigned long long b = 0;
 	printf("Input the biggest number you know - ");
-	scanf_s("%d", &a);
+	scanf_s("%lld", &a);
 	printf("I know bigger number than yours:) - ");
 	srand(time(NULL));
-	while (b < a) {
-		b = a + rand();
-	}
-	cout << b;
+	b = a + rand();
+	printf("%lld", b);
 	return 0;
 }
