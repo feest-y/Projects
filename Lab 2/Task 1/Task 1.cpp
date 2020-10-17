@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <string>
 #include <iostream>
-using namespace std;
 int main() {
 	setlocale(LC_ALL, "rus");
 	char sur1[25] = "", sur2[25] = "", sur3[25] = "";
