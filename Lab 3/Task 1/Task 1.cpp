@@ -3,6 +3,7 @@
 #include <math.h>
 int main()
 {
+
 	setlocale(LC_ALL, "rus");
 	double a = 1, b = 1, c = 1, d = 1, x = 1, y = 1, t1 = 1;
 	printf("Input x,y > ");
