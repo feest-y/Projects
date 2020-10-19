@@ -8,6 +8,7 @@ int main()
 	long out_s = 0;
 	printf("Введите год - ");
 	scanf_s("%d", &year);
+	
 	if (year % 4 == 0) {
 		out_s = out = (long long)ySec + day;
 		printf("\nlong long > %lld секунд в этом высокосном году", out);
