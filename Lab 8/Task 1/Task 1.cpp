@@ -7,6 +7,7 @@ int main()
 	setlocale(LC_ALL, "rus");
 	const int n = 100;
 	int Arr[n];
+
 	for (int i = 0; i < 100; i++)
 	{
 		Arr[i] = rand() % 100 - 50;
