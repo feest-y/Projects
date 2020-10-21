@@ -18,8 +18,5 @@
     <ClCompile Include="Task 8b.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
