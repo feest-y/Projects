@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <time.h>
+#include<ctime>
 using namespace std;
 int main()
 {
@@ -12,4 +13,4 @@ int main()
 		Arr[i] = rand() % 100 - 50;
 		printf("Arr[%d] = %d\n", i, Arr[i]);
 	}
-}	
+}
