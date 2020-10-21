@@ -59,7 +59,7 @@ void pop_inside(int*& arr, unsigned int& size, const int position)
 
 		for (int i = position; i < size; i++)
 		{
-			newArray[i] = arr[i+1];
+			newArray[i] = arr[i + 1];
 		}
 
 		delete[] arr;
@@ -95,7 +95,7 @@ int main()
 	{
 		printf("position > ");
 		scanf_s("%d", &position);
-		pop_inside(Arr,size,position);
+		pop_inside(Arr, size, position);
 		PrintArray(Arr, size);
 	}
 
