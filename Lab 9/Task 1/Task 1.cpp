@@ -47,7 +47,7 @@ void TurnArrayLeft(int* const arr[], const int ROWS = 9, const int COLLS = 9)
 
 		for (int j = 0; j < COLLS; j++)
 		{
-			Buffer[i][j] = arr[j][i];
+			Buffer[i][j] = arr[j][ROWS-i-1];
 		}
 	}
 	for (int i = 0; i < ROWS; i++)
@@ -68,11 +68,12 @@ int main()
 	for (int i = 0; i < COLLS; i++)
 		Arr[i] = new int[COLLS];
 	FillArray(Arr);
+	printf("Original Array:\n");
 	PrintArray(Arr);
 	printf("\n");
 	printf("\n");
 	TurnArrayLeft(Arr);
+	printf("Turned Array:\n");
 	PrintArray(Arr);
-
-
+	return 0;
 }
