@@ -5,7 +5,7 @@ int main()
 {
 	srand(time(NULL));
 	setlocale(LC_ALL, "rus");
-	int a = 0, x = 0, i = 0;
+	int a, x = 0, i = 0;
 	unsigned r = rand() * (rand() % 9);
 	r /= 10;
 	printf("Выбери уровень сложности:\n1.Легкий (1 - 100)\n2.Нормальный (1 - 1 000)\n3.Сложный (1 - 10 000)\n> ");
@@ -34,7 +34,7 @@ int main()
 
 	i = 0;
 	system("cls");
-	printf("x = %d\n", x);
+	//printf("x = %d\n", x);
 	printf("Напиши чило > ");
 
 	while (a != x)

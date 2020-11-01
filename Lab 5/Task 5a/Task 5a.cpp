@@ -16,7 +16,7 @@ int main()
 	x1 = (-b + (float)sqrt(d)) / (2 * a);
 	if (d < 0)
 	{
-		printf("Значения некорректны");
+		printf("D < 0");
 	}
 	else if (d > 0)
 	{
@@ -26,5 +26,5 @@ int main()
 	else if (d == 0) {
 		printf("x = %lf", x1);
 	}
-	else printf("Значения некорректны");
+	else printf("D < 0");
 }
