@@ -57,4 +57,5 @@ int main()
 	printf("\nSum > %d", value);
 
 	printf("\nКоличество цифр > %d", i);
+	delete[] Arr;
 }
