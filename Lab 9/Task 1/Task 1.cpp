@@ -47,7 +47,7 @@ void TurnArrayLeft(int* const arr[], const int ROWS = 9, const int COLLS = 9)
 
 		for (int j = 0; j < COLLS; j++)
 		{
-			Buffer[i][j] = arr[j][ROWS-i-1];
+			Buffer[i][j] = arr[j][ROWS - i - 1];
 		}
 	}
 	for (int i = 0; i < ROWS; i++)
@@ -65,8 +65,7 @@ int main()
 	srand(time(NULL));
 	int ROWS = 9, COLLS = 9;
 	int** Arr = new int* [ROWS];
-	for (int i = 0; i < COLLS; i++)
-		Arr[i] = new int[COLLS];
+	for (int i = 0; i < COLLS; i++) Arr[i] = new int[COLLS];
 	FillArray(Arr);
 	printf("Original Array:\n");
 	PrintArray(Arr);
@@ -75,5 +74,7 @@ int main()
 	TurnArrayLeft(Arr);
 	printf("Turned Array:\n");
 	PrintArray(Arr);
+	for (int i = 0; i < ROWS; i++) delete[] Arr[i];
+	delete[]Arr;
 	return 0;
 }
