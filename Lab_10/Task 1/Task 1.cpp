@@ -97,8 +97,8 @@ int main()
 	colls = rows = (int)sqrt(size);
 
 	int* Arr = new int[size];
-	int** Brr = new int* [colls];
-	for (int i = 0; i < colls; i++)
+	int** Brr = new int* [rows];
+	for (int i = 0; i < rows; i++)
 		Brr[i] = new int[colls];
 
 	printf("\nОдномерный массив >");
