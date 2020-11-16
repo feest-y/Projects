@@ -41,13 +41,18 @@ void PrintArray(const int* const arr[], const int ROWS = 9, const int COLLS = 9)
 
 int main()
 {
+	setlocale(LC_ALL, "rus");
 	srand(time(NULL));
 	int ROWS = 3, COLLS = 3;
 	int** Arr = new int* [ROWS];
 	for (int i = 0; i < COLLS; i++) Arr[i] = new int[COLLS];
 	int Buff = 10, index = 0, k = 0;
 	FillArray(Arr, ROWS, COLLS);
+	printf("Original Array:\n");
 	PrintArray(Arr, ROWS, COLLS);
+
+
+
 	for (int i = 0; i < ROWS; i++)
 	{
 		Buff = 0;
@@ -59,28 +64,34 @@ int main()
 				index = j;
 			}
 		}
-		Arr[i][0] = Arr[i][index];
+		Arr[i][index] = Arr[i][0];
+		Arr[i][0] = Buff;
 	}
-	printf("\nMax in ROWS");
-	printf("\n");
+
+
+
+	printf("\nMax in ROWS:\n");
 	PrintArray(Arr, ROWS, COLLS);
-	Buff = 10;
-	for (int i = 0; i < ROWS; i++)
+
+
+	for (int j = 0; j < COLLS; j++)
 	{
-		for (int j = 0; j < COLLS; j++)
+		Buff = Arr[0][j];
+		for (int i = 0; i < ROWS; i++)
 		{
-			if (Arr[j][i] < Buff)
+			if (Arr[i][j] < Buff)
 			{
-				Buff = Arr[j][i];
+				Buff = Arr[i][j];
 				index = i;
 			}
 		}
-		Buff[index][i] = Buff[9][i];
+		cout << "Минимальное значение в " << j + 1 << " столбце " << "и в " << index+1<< " строке " << Buff << endl;
 	}
 
-	printf("\nMin in COLLS");
-	printf("\n");
-	PrintArray(Arr, ROWS, COLLS);
+
+
+	//printf("\nMin in COLLS\n");
+	//PrintArray(Arr, ROWS, COLLS);
 
 
 	for (int i = 0; i < ROWS; i++) delete[] Arr[i];
