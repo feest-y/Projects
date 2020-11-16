@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <ctime>
-
+using namespace std;
 void FillArray(int* const arr, const int SIZE = 9)
 {
 	for (int i = 0; i < SIZE; i++)
