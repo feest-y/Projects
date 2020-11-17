@@ -72,11 +72,12 @@ int main()
 {
 	setlocale(LC_ALL, "rus");
 	srand(time(NULL));
-	unsigned int position = 0, size = 10, n = 0;
-	int  value = 0;
+	unsigned int position = 0, size = 10, n = 0, m = 0;
+	int value = 0;
 	int* Arr = new int[size];
 	FillArray(Arr, size);
 	PrintArray(Arr, size);
+
 	printf("Сколько чисел вы хотите вставить > ");
 	scanf_s("%d", &n);
 	for (int i = 0; i < n; i++)
@@ -85,12 +86,24 @@ int main()
 		scanf_s("%d", &value);
 		printf("position > ");
 		scanf_s("%d", &position);
+
+		while (position > size)
+		{
+			printf("Invalid position.\n");
+			printf("position > ");
+			scanf_s("%d", &position);
+		}
 		push_inside(Arr, size, value, position);
 		PrintArray(Arr, size);
 	}
-
 	printf("Сколько чисел вы хотите удалить > ");
 	scanf_s("%d", &n);
+	while (n > size)
+	{
+		printf("Invalid amount.\n");
+		printf("Сколько чисел вы хотите удалить > ");
+		scanf_s("%d", &n);
+	}
 	for (int i = 0; i < n; i++)
 	{
 		printf("position > ");
