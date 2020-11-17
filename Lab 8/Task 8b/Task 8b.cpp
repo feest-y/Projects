@@ -42,30 +42,23 @@ void push_inside(int*& arr, unsigned int& size, const int value, const int posit
 	delete[] arr;
 	arr = newArray;
 }
-void pop_inside(int*& arr, unsigned int& size, const int position)
+void pop_inside(int*& arr, unsigned int& size, int position)
 {
-	if (position > size)
+	size--;
+	int* newArray = new int[size];
+	for (int i = 0; i < position; i++)
 	{
-		printf("\nInvalid position");
+		newArray[i] = arr[i];
 	}
-	else {
-		size--;
-		int* newArray = new int[size];
 
-		for (int i = 0; i < position; i++)
-		{
-			newArray[i] = arr[i];
-		}
-
-		for (int i = position; i < size; i++)
-		{
-			newArray[i] = arr[i + 1];
-		}
-
-		delete[] arr;
-
-		arr = newArray;
+	for (int i = position; i < size; i++)
+	{
+		newArray[i] = arr[i + 1];
 	}
+
+	delete[] arr;
+	arr = newArray;
+	newArray = nullptr;
 }
 
 int main()
@@ -108,9 +101,14 @@ int main()
 	{
 		printf("position > ");
 		scanf_s("%d", &position);
+		while (position >= size)
+		{
+			printf("Invalid position.\n");
+			printf("position > ");
+			scanf_s("%d", &position);
+		}
 		pop_inside(Arr, size, position);
 		PrintArray(Arr, size);
 	}
-
 	delete[] Arr;
 }
