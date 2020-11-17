@@ -74,24 +74,37 @@ int main()
 	PrintArray(Arr, ROWS, COLLS);
 
 
-	for (int j = 0; j < COLLS; j++)
+	//for (int j = 0; j < COLLS; j++)
+	//{
+	//	Buff = Arr[0][j];
+	//	for (int i = 0; i < ROWS; i++)
+	//	{
+	//		if (Arr[i][j] < Buff)
+	//		{
+	//			Buff = Arr[i][j];
+	//			index = i;
+	//		}
+	//	}
+	//	//cout << "Минимальное значение в " << j + 1 << " столбце " << "и в " << index+1<< " строке " << Buff << endl;
+	//}
+
+	for (int i = 0; i < ROWS; i++)
 	{
-		Buff = Arr[0][j];
-		for (int i = 0; i < ROWS; i++)
+		Buff = 1000;
+		for (int j = 0; j < COLLS; j++)
 		{
-			if (Arr[i][j] < Buff)
+			if (Buff > Arr[j][i])
 			{
-				Buff = Arr[i][j];
-				index = i;
+				Buff = Arr[j][i];
+				index = j;
 			}
 		}
-		cout << "Минимальное значение в " << j + 1 << " столбце " << "и в " << index+1<< " строке " << Buff << endl;
+		Arr[index][i] = Arr[2][i];
+		Arr[2][i] = Buff;
 	}
 
-
-
-	//printf("\nMin in COLLS\n");
-	//PrintArray(Arr, ROWS, COLLS);
+	printf("\nMin in COLLS\n");
+	PrintArray(Arr, ROWS, COLLS);
 
 
 	for (int i = 0; i < ROWS; i++) delete[] Arr[i];
