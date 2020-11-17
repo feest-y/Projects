@@ -98,5 +98,11 @@ int main()
 	PrintArray(Brr, rows_B, colls_B);
 	printf("\n\nArr*Brr:\n");
 	MatrixMultiply(Arr,rows_A,colls_A,Brr,rows_A,colls_B);
+
+	for (int i = 0; i < rows_A; i++) delete[] Arr[i];
+	delete[]Arr;
+
+	for (int i = 0; i < rows_B; i++) delete[] Brr[i];
+	delete[]Arr;
 	return 0;
 }
