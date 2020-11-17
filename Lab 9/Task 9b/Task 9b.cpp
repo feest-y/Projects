@@ -6,7 +6,7 @@ void FillArray(int* const arr[], const int ROWS, const int COLLS)
 	{
 		for (int j = 0; j < COLLS; j++)
 		{
-			arr[i][j] = rand() % 9 + 1;
+			arr[i][j] = rand() % 5 + 1;
 		}
 	}
 }
@@ -22,8 +22,7 @@ void PrintArray(const int* const arr[], const int ROWS, const int COLLS)
 	}
 	printf("\b");
 }
-void MatrixMultiply(int* const Arr[], const int rows_A, const int colls_A, int* const Brr[], const int rows_B, const int colls_B, ) {
-	
+void MatrixMultiply(int* const Arr[], const int rows_A, const int colls_A, int* const Brr[], const int rows_B, const int colls_B) {
 	int rows_C = rows_A, colls_C = colls_B;
 	int** Crr = new int* [rows_C];
 	for (int i = 0; i < rows_C; i++)
@@ -33,11 +32,25 @@ void MatrixMultiply(int* const Arr[], const int rows_A, const int colls_A, int* 
 	{
 		for (int j = 0; j < colls_C; j++)
 		{
-			Crr[i][j] = Arr[1][1]*Brr[1][1];
+			Crr[i][j] = 0;
+			for (int a = 0; a < colls_A; a++)
+			{
+				Crr[i][j] += Arr[i][a] * Brr[a][j];
+			}
 		}
 	}
 
+	//Вывод
 	
+	for (int i = 0; i < rows_C; i++)
+	{
+		for (int j = 0; j < colls_C; j++)
+		{
+			printf("%3.d ", Crr[i][j]);
+		}
+		printf("\n");
+	}
+	printf("\b");
 }
 int main()
 {
@@ -73,19 +86,17 @@ int main()
 	for (int i = 0; i < rows_A; i++)
 		Arr[i] = new int[colls_A];
 
-
 	int** Brr = new int* [rows_B];
 	for (int i = 0; i < rows_B; i++)
 		Brr[i] = new int[colls_B];
-
 
 	FillArray(Arr, rows_A, colls_A);
 	FillArray(Brr, rows_B, colls_B);
 	printf("\nArr:\n");
 	PrintArray(Arr, rows_A, colls_A);
-	printf("\n");
-	printf("\n");
-	printf("Brr:\n");
+	printf("\n\nBrr:\n");
 	PrintArray(Brr, rows_B, colls_B);
+	printf("\n\nArr*Brr:\n");
+	MatrixMultiply(Arr,rows_A,colls_A,Brr,rows_A,colls_B);
 	return 0;
 }
