@@ -12,7 +12,7 @@ void Standart() {
 void FillArray(int* const arr, const int size, const int min = 1, const int max = 99) {
 	for (int i = 0; i < size; i++)
 	{
-		arr[i] = rand() * (max - min) + min;
+		arr[i] = rand() % (max - min) + min;
 	}
 }
 
@@ -21,7 +21,7 @@ void FillArray(int** const arr, const int ROWS, const int COLLS, const int min =
 	{
 		for (int j = 0; j < COLLS; j++)
 		{
-			arr[i][j] = rand() * (max - min) + min;
+			arr[i][j] = rand() % (max - min) + min;
 		}
 	}
 }
@@ -46,6 +46,13 @@ void PrintArray(const int** const arr, const int ROWS, const int COLLS) {
 	printf("\b");
 }
 
+int InputSize() {
+	setlocale(LC_ALL,"ru");
+	int size = 0;
+	cout << "Input amount of element in Array > ";
+	cin >> size;
+	return size;
+}
 //void push_inside(int*& arr, unsigned int& size, const int value, const unsigned int position){
 //	int x = 0;
 //	if (position > size)
@@ -215,8 +222,7 @@ void SwapWithPrevious(int* const arr, const int position) {
 }
 
 double ShakerSort(int* const arr, const int size) {
-	int leftMark = 1;
-	int rightMark = size - 1;
+	int leftMark = 1,rightMark = size - 1;
 	cout << endl;
 	auto start = chrono::high_resolution_clock::now();
 	while (leftMark <= rightMark)
@@ -231,7 +237,6 @@ double ShakerSort(int* const arr, const int size) {
 		//cout << "\nИтерация: " << leftMark - 1; // просмотр количества итераций
 	}
 	chrono::duration <double> duration = chrono::high_resolution_clock::now() - start;
-	cout << endl;
 	return duration.count();
 }
 
@@ -242,4 +247,16 @@ void DeleteArray(int* arr) {
 void DeleteArray(int** arr, const int rows) {
 	for (int i = 0; i < rows; i++) delete[] arr[i];
 	delete[] arr;
+}
+
+int CountDigits(int number) {
+
+	int n = 1;
+
+	while (((int)(number / 9)) > 0)
+	{
+		number /= 10;
+		n++;
+	}
+	return n;
 }
