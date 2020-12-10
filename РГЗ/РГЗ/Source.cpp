@@ -1,101 +1,61 @@
 #include "Header.h"
 
-int velich_razr(int num, int razr)
-{
-	while (razr > 1)
-	{
-		num /= 10;
-		razr--;
-	}
-	return num % 10;
-}
+void FillArrayDirect(int* const arr, const int size) {
 
-//void sort_razr(int* arr, int razr, const int size)
-//{
-//	int** Buff = new int* [size]; for (int i = 0; i < size; i++) Buff[i] = new int[size];
-//	int* BuffCol = new int[size];
-//	int temp = 0;
-//
-//	for (int i = 0; i < size; i++) {
-//		BuffCol[i] = 0;
-//	}
-//
-//	for (int i = 0; i < size; i++)
-//	{
-//		int a = velich_razr(arr[i], razr);
-//		Buff[BuffCol[a]][a] = arr[i];
-//		BuffCol[a]++;
-//	}
-//
-//	for (int i = 0; i < size; i++)
-//	{
-//		for (int j = 0; j < BuffCol[i]; j++)
-//		{
-//			arr[temp] = Buff[j][i];
-//			temp++;
-//		}
-//	}
-//
-//	DeleteArray(Buff, size);
-//	DeleteArray(BuffCol);
-//}
-
-double RadixSort(int* arr, int size) {
-	int razr = 0;
-	int** Buff = new int* [size]; for (int i = 0; i < size; i++) Buff[i] = new int[size];
-	int* BuffCol = new int[size];
-	int temp = 0;
 	for (int i = 0; i < size; i++)
 	{
-		if (CountDigits(arr[i]) > razr)
-		{
-			razr = CountDigits(arr[i]);
-		}
+		arr[i] = i;
 	}
-	auto start = chrono::high_resolution_clock::now();
-	for (int k = 1; k <= razr; k++) {
-	//	sort_razr(arr, i, size);
-		temp = 0;
-		for (int i = 0; i < size; i++) {
-			BuffCol[i] = 0;
-		}
-
-		for (int i = 0; i < size; i++)
-		{
-			int a = velich_razr(arr[i], k);
-			Buff[BuffCol[a]][a] = arr[i];
-			BuffCol[a]++;
-		}
-
-		for (int i = 0; i < size; i++)
-		{
-			for (int j = 0; j < BuffCol[i]; j++)
-			{
-				arr[temp] = Buff[j][i];
-				temp++;
-			}
-		}
-	}
-	chrono::duration <double> duration = chrono::high_resolution_clock::now() - start;
-	DeleteArray(Buff, size);
-	DeleteArray(BuffCol);
-	return duration.count();
 }
+
+void FillArrayReverse(int* const arr, const int size) {
+
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = size - i;
+	}
+}
+
 int main()
 {
 	Standart();
-	int size = InputSize(), razr = 0,max;
-	int* Arr = new int[size];
+	int size = 50/*= InputSize()*/, max;
+	double RadixTime[100] = {}, ShakerTime[100] = {}, RadixAvgTime[9] = {}, ShakerAvgTime[9] = {};
+
+	int size_ofR = sizeof(RadixTime) / sizeof(RadixTime[0]);
+	int size_ofS = sizeof(RadixTime) / sizeof(RadixTime[0]);
+
 	cout << "Input max value in array > ";
 	cin >> max;
-	FillArray(Arr, size,0,max);
-	//PrintArray(Arr, size);
-	printf("RadixSort  - Затраченое время > %.8lfs", RadixSort(Arr, size));
-	//PrintArray(Arr, size);
-	FillArray(Arr, size,0, max);
-	//PrintArray(Arr, size);
-	printf("ShakerSort - Затраченое время > %.8lfs", ShakerSort(Arr, size));
-	//PrintArray(Arr, size);
-	DeleteArray(Arr);
+	cout.setf(ios::fixed);
+	cout.precision(8);
+	for (short n = 1; n < 10; n++)
+	{
+		int* Arr = new int[size];
+		for (short i = 0; i < 100; i++)
+		{
+			FillArray(Arr, size);
+			RadixTime[i] = RadixSort(Arr, size);
+			FillArray(Arr, size);
+			ShakerTime[i] = ShakerSort(Arr, size);
+		}
+		ShakerSort(RadixTime, size_ofR);
+		ShakerSort(ShakerTime, size_ofS);
+		RadixAvgTime[n - 1] = AverageInArray(RadixTime, size_ofR, 10, 90);
+		ShakerAvgTime[n - 1] = AverageInArray(ShakerTime, size_ofS, 10, 90);
+
+		cout << "RadixAvgTime  (" << size << ") > " << RadixAvgTime[n - 1] << "\n";
+		cout << "ShakerAvgTime (" << size << ") > " << ShakerAvgTime[n - 1] << "\n\n";
+
+		if (n % 3)
+		{
+			size *= 2;
+		}
+		else size *= 2.5;
+		DeleteArray(Arr);
+	}
+
+
+
 	return 0;
 }

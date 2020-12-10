@@ -25,11 +25,11 @@ void FillArray(int** const arr, const int ROWS, const int COLLS, const int min =
 		}
 	}
 }
-
-void PrintArray(const int* const arr, const int size) {
+template <typename T>
+void PrintArray(const T* const arr, const int size) {
 	for (int i = 0; i < size; i++)
 	{
-		printf("%d\t", arr[i]);
+		cout << arr[i] << "\n";
 	}
 	printf("\n");
 }
@@ -46,8 +46,21 @@ void PrintArray(const int** const arr, const int ROWS, const int COLLS) {
 	printf("\b");
 }
 
+template <typename T>
+T AverageInArray(const T* const arr, const int size, const short first = 0, const int last = size) {
+	T Sum = 0;
+
+	for (int i = first; i < last; i++)
+	{
+		Sum += arr[i];
+	}
+
+	return Sum / (last - first);
+}
+
+
 int InputSize() {
-	setlocale(LC_ALL,"ru");
+	setlocale(LC_ALL, "ru");
 	int size = 0;
 	cout << "Input amount of element in Array > ";
 	cin >> size;
@@ -192,6 +205,15 @@ void MatrixMultiply(int* const Arr[], const int rows_A, const int colls_A, int* 
 	printf("\b");
 }
 
+void DeleteArray(int* arr) {
+	delete[] arr;
+}
+
+void DeleteArray(int** arr, const int rows) {
+	for (int i = 0; i < rows; i++) delete[] arr[i];
+	delete[] arr;
+}
+
 template <typename T>
 void Bin(T num = 0) {
 	if (num != 0)
@@ -214,16 +236,18 @@ void Bin(T num = 0) {
 	else printf(" ( 0 ) ");
 }
 
-void SwapWithPrevious(int* const arr, const int position) {
-	int buff;
+template <typename T>
+void SwapWithPrevious(T* const arr, const int position) {
+	T buff;
 	buff = arr[position];
 	arr[position] = arr[position - 1];
 	arr[position - 1] = buff;
 }
 
-double ShakerSort(int* const arr, const int size) {
-	int leftMark = 1,rightMark = size - 1;
-	cout << endl;
+template <typename T>
+double ShakerSort(T* const arr, const int size) {
+	int leftMark = 1, rightMark = size - 1;
+
 	auto start = chrono::high_resolution_clock::now();
 	while (leftMark <= rightMark)
 	{
@@ -240,15 +264,6 @@ double ShakerSort(int* const arr, const int size) {
 	return duration.count();
 }
 
-void DeleteArray(int* arr) {
-	delete[] arr;
-}
-
-void DeleteArray(int** arr, const int rows) {
-	for (int i = 0; i < rows; i++) delete[] arr[i];
-	delete[] arr;
-}
-
 int CountDigits(int number) {
 
 	int n = 1;
@@ -259,4 +274,57 @@ int CountDigits(int number) {
 		n++;
 	}
 	return n;
+}
+
+int RadixSort_VelichRazr(int num, int razr)
+{
+	while (razr > 1)
+	{
+		num /= 10;
+		razr--;
+	}
+	return num % 10;
+}
+
+double RadixSort(int* arr, int size) {
+
+	int razr = 0;
+	int** Buff = new int* [size]; for (int i = 0; i < size; i++) Buff[i] = new int[size];
+	int* BuffCol = new int[size];
+	int temp = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (CountDigits(arr[i]) > razr)
+		{
+			razr = CountDigits(arr[i]);
+		}
+	}
+	auto start = chrono::high_resolution_clock::now();
+	for (int k = 1; k <= razr; k++) {
+		//	sort_razr(arr, i, size);
+		temp = 0;
+		for (int i = 0; i < size; i++) {
+			BuffCol[i] = 0;
+		}
+
+		for (int i = 0; i < size; i++)
+		{
+			int a = RadixSort_VelichRazr(arr[i], k);
+			Buff[BuffCol[a]][a] = arr[i];
+			BuffCol[a]++;
+		}
+
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < BuffCol[i]; j++)
+			{
+				arr[temp] = Buff[j][i];
+				temp++;
+			}
+		}
+	}
+	chrono::duration <double> duration = chrono::high_resolution_clock::now() - start;
+	DeleteArray(Buff, size);
+	DeleteArray(BuffCol);
+	return duration.count();
 }
