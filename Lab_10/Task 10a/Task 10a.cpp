@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 
-
 char Compare(int a, int b) {
 	if (a < b) return '<';
 	else if (a > b) return '>';
