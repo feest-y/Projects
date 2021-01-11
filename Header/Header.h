@@ -4,6 +4,8 @@
 #include<cmath>
 #include<ctime>
 using namespace std;
+
+#define r0 return 0
 void Standart() {
 	setlocale(LC_ALL, "ru");
 	srand(time(0));
