@@ -58,6 +58,23 @@ T AverageInArray(const T* const arr, const int size, const short first = 0, cons
 	return Sum / (last - first);
 }
 
+template <typename T>
+void FillArrayDirect(T* const arr, const int size) {
+
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = i;
+	}
+}
+
+template <typename T>
+void FillArrayReverse(T* const arr, const int size) {
+
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = size - i - 1;
+	}
+}
 
 int InputSize() {
 	setlocale(LC_ALL, "ru");
@@ -205,11 +222,13 @@ void MatrixMultiply(int* const Arr[], const int rows_A, const int colls_A, int* 
 	printf("\b");
 }
 
-void DeleteArray(int* arr) {
+template <typename T>
+void DeleteArray(T* arr) {
 	delete[] arr;
 }
 
-void DeleteArray(int** arr, const int rows) {
+template <typename T>
+void DeleteArray(T** arr, const int rows) {
 	for (int i = 0; i < rows; i++) delete[] arr[i];
 	delete[] arr;
 }
