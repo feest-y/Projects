@@ -349,3 +349,26 @@ double RadixSort(int* arr, int size) {
 	DeleteArray(BuffCol);
 	return duration.count();
 }
+
+template <typename T>
+void DescendingSort(T* const arr, const int size) {
+	ShakerSort(arr, size);
+	int* Buff = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		Buff[i] = arr[i];
+	}
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = Buff[size - i - 1];
+	}
+}
+
+template <typename T>
+int CountNegativeDigits(const T* const arr, const int size) {
+	int counter = 0;
+	for (int i = 0; i < size; i++)	{
+		if (arr[i] < 0) counter++;
+	}
+	return counter;
+}
