@@ -13,7 +13,9 @@ int main()
 	z = size - n - p;
 
 	DescendingSort(Arr, size);
+
 	PrintArray(Arr, size);
+
 	int* Nrr = new int[n] {};
 	for (int i = 0; i < n; i++)
 	{
@@ -23,7 +25,7 @@ int main()
 	int* Prr = new int[p] {};
 	for (int i = 0; i < p; i++)
 	{
-		Nrr[i] = Arr[i];
+		Prr[i] = Arr[i];
 	}
 
 	int* Zrr = new int[z] {};
