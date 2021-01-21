@@ -16,16 +16,24 @@ struct Company
 	float area = 0;
 	int workers = 0;
 
-	void SetCompany() {
+	void SetCompany(bool x = 0) {
+		if (x)
+		{
 		name[0] = rand() % (122 - 65) + 65;
-		//cout << "Company name > ";
-		//cin >> name;
-		//cout << "Company type > ";
-		//cin >> type;
-		//cout << "Company workers > ";
-		//cin >> workers;
-		//cout << "Company area > ";
-		//cin >> area;
+		type = rand() % (122 - 65) + 65;
+		workers = rand() % 12700;
+		area = rand() % 1270;
+		}
+		else {
+		cout << "Company name > ";
+		cin >> name;
+		cout << "Company type > ";
+		cin >> type;
+		cout << "Company workers > ";
+		cin >> workers;
+		cout << "Company area > ";
+		cin >> area;
+		}
 	}
 
 	void PrintCompany() {
@@ -65,52 +73,34 @@ void PrintS(Company All, int n = 10) {
 	printf("----------------------------------------------\n");
 }
 
-//
-//int sort() {
-//	int A[10] = {};
-//	int col = 0;
-//	int temp = 0;
-//	for (int i = 0; i < col; i++)
-//		for (int j = 0; i < col; j++) {
-//			if (A[j] > A[j + 1]) {
-//				temp = A[j];
-//				A[j] = A[j + 1];
-//				A[j + 1] = A[j];
-//			}
-//		}
-//	return 0;
-//}
-//
-//void SortSs(Company All) {
-//	Company Buffer = A[0];
-//	short n = 0;
-//	for (int i = 0; i < 10; i++)
-//	{
-//		Buffer = A[i];
-//		for (int j = i; j < 10; j++) {
-//			if (Buffer.name[0] > A[j].name[0])
-//			{
-//				n = j;
-//				Buffer = A[j];
-//			}
-//			//Buffer.PrintCompany();
-//			A[n] = A[i];
-//			A[i] = Buffer;
-//		}
-//	}
-//
-//}
-
-void SortS(Company All) {
-	Company temp = A[0];
-	for (int i = 0; i < 10; i++)
-		for (int j = 0; j < 10; j++) {
-			if (A[j].name > A[j + 1].name) {
-				temp = A[j];
-				A[j] = A[j + 1];
-				A[j + 1] = A[j];
-			}
+void SortS(Company All, int n = 10) {
+	
+	Company Buffer = A[0];
+	for (int i = 0; i < n-1; i++){
+		if (A[i].name>A[i+1].name){
+			Buffer = A[i + 1];
+			A[i + 1] = A[i];
+			A[i] = Buffer;
+			i = 0;
 		}
+	}
+
+	/*int Arr[10] = { 1,424,4124,5,124,5,547,123,24,12 };
+	int buff = Arr[0];
+	for (int i = 0; i < 9; i++){
+		if (Arr[i]>Arr[i+1]){
+			buff = Arr[i + 1];
+			Arr[i + 1] = Arr[i];
+			Arr[i] = buff;
+			i = 0;
+		}
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		cout << Arr[i] << endl;
+	}*/
+
 }
 
 int main() {
@@ -122,7 +112,7 @@ int main() {
 	{
 		if (i != 0) cout << "\n";
 		cout << "Company " << i + 1 << ":\n";
-		A[i].SetCompany();
+		A[i].SetCompany(1);
 	}
 
 	PrintS(All);
