@@ -104,7 +104,7 @@ void PrintS(Company All, int n = 10) {
 void SortS(Company All) {
 	Company temp = A[0];
 	for (int i = 0; i < 10; i++)
-		for (int j = 0; i < 10; j++) {
+		for (int j = 0; j < 10; j++) {
 			if (A[j].name > A[j + 1].name) {
 				temp = A[j];
 				A[j] = A[j + 1];
