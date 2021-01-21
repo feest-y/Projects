@@ -8,7 +8,7 @@ using namespace std;
 #define r0 return 0
 void Standart() {
 	setlocale(LC_ALL, "ru");
-	srand(time(0));
+	srand(time(NULL));
 }
 
 void FillArray(int* const arr, const int size, const int min = 1, const int max = 99) {
