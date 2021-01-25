@@ -5,42 +5,52 @@
 #include<ctime>
 using namespace std;
 
+//ПРАВИЛЬНОЕ СОЗДАНИЕ ДВУМЕРНОГО ДИНАМЕЧЕСКОГО МАССИВА
+void О() {
+	int rows = 9, colls = 9;
+	int** Arr = new int* [rows];
+
+	for (int i = 0; i < rows; i++)
+		Arr[i] = new int[colls];
+
+	for (int i = 0; i < rows; i++)
+		delete[] Arr[i];
+
+	delete[] Arr;
+}
+
+
 #define r0 return 0
+
 void Standart() {
 	setlocale(LC_ALL, "ru");
 	srand(time(NULL));
 }
 
 void FillArray(int* const arr, const int size, const int min = 1, const int max = 99) {
-	for (int i = 0; i < size; i++)
-	{
+	for (int i = 0; i < size; i++) {
 		arr[i] = rand() % (max - min) + min;
 	}
 }
 
 void FillArray(int** const arr, const int ROWS, const int COLLS, const int min = 1, const int max = 99) {
-	for (int i = 0; i < ROWS; i++)
-	{
-		for (int j = 0; j < COLLS; j++)
-		{
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLLS; j++) {
 			arr[i][j] = rand() % (max - min) + min;
 		}
 	}
 }
 template <typename T>
 void PrintArray(const T* const arr, const int size) {
-	for (int i = 0; i < size; i++)
-	{
+	for (int i = 0; i < size; i++) {
 		cout << arr[i] << "\n";
 	}
 	printf("\n");
 }
 
-void PrintArray(const int** const arr, const int ROWS, const int COLLS) {
-	for (int i = 0; i < ROWS; i++)
-	{
-		for (int j = 0; j < COLLS; j++)
-		{
+void PrintArray(int** const arr, const int ROWS, const int COLLS) {
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLLS; j++) {
 			printf("%2.d ", arr[i][j]);
 		}
 		printf("\n");
@@ -52,8 +62,7 @@ template <typename T>
 T AverageInArray(const T* const arr, const int size, const short first = 0, const int last = size) {
 	T Sum = 0;
 
-	for (int i = first; i < last; i++)
-	{
+	for (int i = first; i < last; i++) {
 		Sum += arr[i];
 	}
 
@@ -63,8 +72,7 @@ T AverageInArray(const T* const arr, const int size, const short first = 0, cons
 template <typename T>
 void FillArrayDirect(T* const arr, const int size) {
 
-	for (int i = 0; i < size; i++)
-	{
+	for (int i = 0; i < size; i++) {
 		arr[i] = i;
 	}
 }
@@ -72,8 +80,7 @@ void FillArrayDirect(T* const arr, const int size) {
 template <typename T>
 void FillArrayReverse(T* const arr, const int size) {
 
-	for (int i = 0; i < size; i++)
-	{
+	for (int i = 0; i < size; i++) {
 		arr[i] = size - i - 1;
 	}
 }
@@ -367,7 +374,7 @@ void DescendingSort(T* const arr, const int size) {
 template <typename T>
 int CountNegativeDigits(const T* const arr, const int size) {
 	int counter = 0;
-	for (int i = 0; i < size; i++)	{
+	for (int i = 0; i < size; i++) {
 		if (arr[i] < 0) counter++;
 	}
 	return counter;
