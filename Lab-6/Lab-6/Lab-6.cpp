@@ -20,7 +20,7 @@ int main() {
 
 	setlocale(LC_ALL, "ru");
 	int length = 0;
-	string input = "\0";
+	string input = "x";
 
 	do
 	{
@@ -28,6 +28,7 @@ int main() {
 		cout << "¬ведите длинну первой строки > ";
 		cin >> input;
 		length = StrToInt(input);
+		input = "x";
 	} while (length <= 0);
 	char* Str1 = new char[length];
 	input = "x";
@@ -38,6 +39,7 @@ int main() {
 		cout << "¬ведите длинну второй строки > ";
 		cin >> input;
 		length = StrToInt(input);
+		input = "x";
 	} while (length <= 0);
 
 	system("cls");
@@ -66,7 +68,7 @@ int main() {
 		}
 		if (counter == 0)
 		{
-			cout << "Unique symbol > "<<Str1[i];
+			cout << "Unique symbol > " << Str1[i];
 			break;
 		}
 		i++;
