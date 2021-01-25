@@ -2,26 +2,48 @@
 #include <String>
 using namespace std;
 
+int StrToInt(string b)
+{
+	int x = 0;
+	for (int i = 0; b[i] != '\0'; i++)
+	{
+		if (b[i] >= 48 && b[i] <= 57)
+		{
+			x *= 10;
+			x += (b[i] - 48);
+		}
+	}
+	return x;
+}
 
 int main() {
 
 	setlocale(LC_ALL, "ru");
-	int length = 1000;
-	string input;
+	int length = 0;
+	string input = "\0";
 
-	cout << "¬ведите длинну первой строки > ";
-	while (cin >> length)
+	do
 	{
-
-	}
+		system("cls");
+		cout << "¬ведите длинну первой строки > ";
+		cin >> input;
+		length = StrToInt(input);
+	} while (length <= 0);
 	char* Str1 = new char[length];
+	input = "x";
 
-	cout << "¬ведите длинну второй строки > ";
-	while (cin >> length)
+	do
 	{
+		system("cls");
+		cout << "¬ведите длинну второй строки > ";
+		cin >> input;
+		length = StrToInt(input);
+	} while (length <= 0);
 
-	}
+	system("cls");
+
 	char* Str2 = new char[length];
+
 
 
 	cout << "Str1 > ";
@@ -44,7 +66,7 @@ int main() {
 		}
 		if (counter == 0)
 		{
-			cout << Str1[i];
+			cout << "Unique symbol > "<<Str1[i];
 			break;
 		}
 		i++;
