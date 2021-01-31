@@ -1,67 +1,131 @@
 #pragma once
 #include <iostream>
+#include <fstream>
+#include <cstdio>
 #include <String>
 #include "Debug.h"
+#include "Functions.h"
 
 #define zxc printf("|")
+#define zxcf fout.width(1);fout << "|"
 
 using namespace std;
 
 struct Company
 {
-	std::string name = "N";
+	string input = " ";
+	string name = "Abc";
 	char type = name[0];
 	float area = 0;
 	int workers = 0;
 
-	void SetCompany(bool x = 0);
-	void PrintCompany();
-}A[10];
+	void SetCompany(bool x = 0) {
+		if (x)
+		{
+			for (int i = 0; i < 3; i++)
+				name[i] = rand() % (122 - 65) + 65;
 
-void Company::SetCompany(bool x) {
-	if (x)
-	{
-		name[0] = rand() % (122 - 65) + 65;
-		type = rand() % (122 - 65) + 65;
-		workers = rand() % 12700;
-		area = (float)(rand() % 1270);
+		
+			type = rand() % (122 - 65) + 65;
+			workers = rand() % 12700;
+			area = (float)(rand() % 1270);
+		}
+
+		else {
+			cout << "Company name > ";
+			cin >> name;
+			cout << "Company type > ";
+			cin >> input; type = input[0];
+			cout << "Company workers > ";
+			cin >> input; workers = StrToInt(input);
+			cout << "Company area > ";
+			cin >> input; area = (float)StrToInt(input);
+		}
 	}
-	else {
-		cout << "Company name > ";
-		cin >> name;
-		cout << "Company type > ";
-		cin >> type;
-		cout << "Company workers > ";
-		cin >> workers;
-		cout << "Company area > ";
-		cin >> area;
+
+	void Print() {
+		zxc;
+		cout.width(11);
+		cout << name;
+		zxc;
+		cout.width(7);
+		cout << type;
+		zxc;
+		cout.width(10);
+		cout << workers;
+		zxc;
+		cout.width(13);
+		cout << area;
+		zxc;
+		printf("\n");
+		cout.width(1);
 	}
+	void PrintFromFile(string filename, short position = 0) {
+		ifstream fin;
+		fin.open(filename);
+		if (fin.is_open())
+		{
+			short i = 0;
+			string Buff = "";
+			for (i = 1; !fin.eof(); i++)
+			{
+				getline(fin, Buff);
+				if (position == 0 || i == position)
+					cout << Buff << "\n";
+			}
+			if (i <= position)
+				cout << "Запись отсутствует\n";
+		}
+		else cout << "File is not open";
+	}
+	void CompanyToFile(string filename, short position = 0) {
+		ofstream fout;
 
-#ifdef DEBUG
-	std::cout << __FILE__ << " > " << __FUNCTION__ << ": ";
-	Debug();
-#endif // DEBUG
-}
+		if (position == 0)
+			fout.open(filename);
+		else if (position == 1)
+			fout.open('1' + filename, ofstream::app);
+		else if (position == 2) {
+			fout.open(filename, ofstream::app);
+			fout << "\n";
+		}
 
-void Company::PrintCompany() {
-	zxc;
-	cout.width(11);
-	cout << name;
-	zxc;
-	cout.width(7);
-	cout << type;
-	zxc;
-	cout.width(10);
-	cout << workers;
-	zxc;
-	cout.width(13);
-	cout << area;
-	zxc;
-	printf("\n");
-	cout.width(1);
+		zxcf;
+		fout.width(11);
+		fout << name;
+		zxcf;
+		fout.width(7);
+		fout << type;
+		zxcf;
+		fout.width(10);
+		fout << workers;
+		zxcf;
+		fout.width(13);
+		fout << area;
+		zxcf;
 
-#ifdef DEBUG
-	std::cout << __FILE__ << " > " << __FUNCTION__ << ": ";
-	Debug();
-#endif // DEBUG
-}
+		if (position == 1)
+		{
+			ifstream fin;
+			fin.open(filename);
+
+			if (fin.is_open())
+			{
+				string Buff = "";
+				while (!fin.eof())
+				{
+					fout << "\n";
+					getline(fin, Buff);
+					fout << Buff;
+				}
+			}
+			fin.close();
+			fout.close();
+			remove("Company.txt");
+			position = rename("1Company.txt", "Company.txt");
+		}
+		else
+			fout.close();
+
+	}
+};
