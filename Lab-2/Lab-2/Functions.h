@@ -36,7 +36,7 @@ void SortS(Company All, int n) {
 			Buffer = A[i + 1];
 			A[i + 1] = A[i];
 			A[i] = Buffer;
-			i = 0;
+			i = -1;
 		}
 	}
 
