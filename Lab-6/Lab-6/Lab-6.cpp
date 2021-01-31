@@ -30,7 +30,7 @@ int main() {
 		length = StrToInt(input);
 		input = "x";
 	} while (length <= 0);
-	char* Str1 = new char[length];
+	char* Str1 = new char[length + 1];
 	input = "x";
 
 	do
@@ -44,7 +44,7 @@ int main() {
 
 	system("cls");
 
-	char* Str2 = new char[length];
+	char* Str2 = new char[length + 1];
 
 
 

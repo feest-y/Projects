@@ -1,63 +1,23 @@
 #pragma once
-#include "Company.h"
-#include "Debug.h"
+#include <String>
+//#include <cmath>
 
-void PrintS(Company All, int n = 10);
-void SortS(Company All, int n = 10);
-
-void PrintS(Company All, int n) {
-
-	std::cout << "\n\n";
-	printf("---------------------------------------------\n");
-	printf("|      Сельскохозяйственные предприятия      |\n");
-	printf("|--------------------------------------------|\n");
-	printf("|  Название |  Вид  |Количество|   Площадь   |\n");
-	printf("|           |       |работников|   земли (га)|\n");
-	printf("|-----------|-------|----------|-------------|\n");
-
-	for (short i = 0; i < n; i++)
+int StrToInt(std::string b) {
+	int x = 0, counter = 0;;
+	for (int i = 0; b[i] != '\0'; i++)
 	{
-		A[i].PrintCompany();
-	}
-
-	printf("----------------------------------------------\n");
-
-#ifdef DEBUG
-	std::cout << __FILE__ << " > " << __FUNCTION__ << ": ";
-	Debug();
-#endif // DEBUG
-}
-
-void SortS(Company All, int n) {
-
-	Company Buffer = A[0];
-	for (int i = 0; i < n - 1; i++) {
-		if (A[i].name > A[i + 1].name) {
-			Buffer = A[i + 1];
-			A[i + 1] = A[i];
-			A[i] = Buffer;
-			i = 0;
+		if (b[i] >= 48 && b[i] <= 57 && counter == 0)
+		{
+			x *= 10;
+			x += (b[i] - 48);
 		}
-	}
-
-	/*int Arr[10] = { 1,424,4124,5,124,5,547,123,24,12 };
-	int buff = Arr[0];
-	for (int i = 0; i < 9; i++){
-		if (Arr[i]>Arr[i+1]){
-			buff = Arr[i + 1];
-			Arr[i + 1] = Arr[i];
-			Arr[i] = buff;
-			i = 0;
+		/*else if (b[i] == 46 && b[i + 1] >= 48 && b[i + 1] <= 57) {
+			counter++;
 		}
+		else if (counter != 0 && b[i] >= 48 && b[i] <= 57) {
+			x += (b[i] - 48)/(pow(10,counter));
+			counter++;
+		}*/
 	}
-
-	for (int i = 0; i < 10; i++)
-	{
-		cout << Arr[i] << endl;
-	}*/
-
-#ifdef DEBUG
-	std::cout << __FILE__ << " > " << __FUNCTION__ << ": ";
-	Debug();
-#endif // DEBUG
+	return x;
 }
