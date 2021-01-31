@@ -5,8 +5,6 @@
 #include <conio.h>
 #include <windows.h>
 #include "Company.h"
-#include "Functions.h"
-#include "Debug.h"
 
 int main()
 {
