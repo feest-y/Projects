@@ -7,11 +7,14 @@
 
 #include <iostream>
 #include <String>
+#include <windows.h>
+#include <conio.h>
 
 using namespace std;
 
 #define zxc printf("|")
 //#define DEBUG
+#define _CLS_
 #define PRINT_TYPE
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -92,7 +95,7 @@ void SortS(Company All, int n = 10) {
 			Buffer = A[i + 1];
 			A[i + 1] = A[i];
 			A[i] = Buffer;
-			i = 0;
+			i = -1;
 		}
 	}
 
@@ -117,25 +120,72 @@ int main()
 	setlocale(LC_ALL, "ru");
 	srand(time(NULL));
 	Company All;
-	short n = 10;
+tryAgain:
+#ifdef _CLS_ 
+	system("cls");
+#endif 
+	cout << "1. Ввод с экрана.\n";
+	cout << "2. Заполнение случайным образом.\n";
+	cout << "3. Сортировка.\n";
+	cout << "4. Вывод на экран.\n";
+	cout << "5. Выход.\n";
+	int N = _getch();
 
-	for (short i = 0; i < n; i++)
-	{
-#ifdef PRINT_TYPE
-		A[i].SetCompany(true);
-#else
-		if (i != 0)  cout << "\n";
-		cout << "Company " << i + 1 << ":\n";
-		A[i].SetCompany(false);
+#ifdef DEBUG
+	cout << N << endl;
 #endif 
 
+	switch (N - 48)
+	{
+	case 1: {
+#ifdef _CLS_ 
+		system("cls");
+#endif 
+		for (short i = 0; i < 10; i++) {
+			cout << "Company " << i + 1 << " >\n";
+			A[i].SetCompany();
+		}
+		cout << "Done !\n";
+		Sleep(250);
+		goto tryAgain;
+	}
+	case 2: {
+#ifdef _CLS_ 
+		system("cls");
+#endif 
+
+		for (short i = 0; i < 10; i++)
+			A[i].SetCompany(1);
+
+		cout << "Done !\n";
+		Sleep(250);
+		goto tryAgain;
+	}
+	case 3: {
+#ifdef _CLS_ 
+		system("cls");
+#endif 
+		SortS(All);
+		cout << "Done !\n";
+		Sleep(250);
+		goto tryAgain;
+	}
+	case 4: {
+#ifdef _CLS_ 
+		system("cls");
+#endif 
+		PrintS(All);
+		_getch();
+		cout << "Done !\n";
+		Sleep(250);
+		goto tryAgain;
 	}
 
-	PrintS(All);
-
-	SortS(All);
-
-	PrintS(All);
+	case 5: return 0;
+	case -45: return 0;
+	case 27 - 48: return 0;
+	default:goto tryAgain;
+	}
 
 	return 0;
-	}
+}
