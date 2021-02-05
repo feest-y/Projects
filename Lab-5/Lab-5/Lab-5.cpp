@@ -6,7 +6,7 @@ void FillArray(int** const arr, const int ROWS, const int COLLS, const int min =
 	for (int i = 0; i < ROWS; i++)
 	{
 		for (int j = 0; j < COLLS; j++) {
-			arr[i][j] = rand() % (max - min) + min;
+			*(*(arr + i) + j) = rand() % (max - min) + min;
 		}
 	}
 }
@@ -14,7 +14,7 @@ void FillArray(int** const arr, const int ROWS, const int COLLS, const int min =
 void PrintArray(int** const arr, const int ROWS, const int COLLS) {
 	for (int i = 0; i < ROWS; i++) {
 		for (int j = 0; j < COLLS; j++) {
-			printf("%2.d ", arr[i][j]);
+			printf("%2.d ", *(*(arr + i) + j));
 		}
 		printf("\n");
 	}
@@ -29,21 +29,22 @@ int** TurnArrayLeft(int** arr, int& rows, int& colls)
 
 	int** NewArr = new int* [rows];
 	for (int i = 0; i < rows; i++)
-		NewArr[i] = new int[colls];
+		*(NewArr + i) = new int[colls] {};
 
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < colls; j++)
 		{
-			NewArr[i][j] = arr[j][rows - i - 1];
+			//*(*(Arr + i) + j)
+			*(*(NewArr + i) + j) = *(*(arr + j) + (rows - i - 1));// [j] [rows - i - 1] ;
 			//cout << arr[j][rows - i - 1] << " ";
 		}
 		//cout << endl;
 	}
 	//cout << endl;
-	
+
 	for (int i = 0; i < colls; i++)
-		delete[] arr[i];
+		delete[] * (arr + i);
 	delete arr;
 
 	return NewArr;
@@ -75,7 +76,7 @@ int main()
 	PrintArray(Arr, rows, colls);
 
 	for (int i = 0; i < rows; i++)
-		delete[] Arr[i];
+		delete[] *(Arr + i);
 
 	delete[] Arr;
 	return 0;
