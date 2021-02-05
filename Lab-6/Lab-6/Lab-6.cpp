@@ -46,12 +46,29 @@ int main() {
 
 	char* Str2 = new char[length + 1];
 
+	do
+	{
+		system("cls");
+		cout << "Str1 > ";
+		cin >> input;
+	} while (input.length() > length);
 
+	for (int i = 0; i < input.length(); i++)
+	{
+		*(Str1 + i) = input[i];
+	}
+	do
+	{
+		system("cls");
+		cout << "Str2 > ";
+		cin >> input;
+	} while (input.length() > length);
 
-	cout << "Str1 > ";
-	cin >> Str1;
-	cout << "Str2 > ";
-	cin >> Str2;
+	for (int i = 0; i < input.length(); i++)
+	{
+		*(Str2 + i) = input[i];
+	}
+
 	int i = 0, j = 0, counter = 0, counter1 = 0;
 
 	while (Str1[i] != '\0')
