@@ -30,6 +30,9 @@ int** TurnArrayLeft(int** arr, int& rows, int& colls)
 	rows = colls;
 	colls = a;
 
+
+	cout << rows << "\t" << colls<<endl;
+
 	int** NewArr = new int* [rows];
 	for (int i = 0; i < rows; i++)
 		*(NewArr + i) = new int[colls] {};
@@ -44,7 +47,6 @@ int** TurnArrayLeft(int** arr, int& rows, int& colls)
 		}
 		//cout << endl;
 	}
-	//cout << endl;
 
 	for (int i = 0; i < colls; i++)
 		delete[] * (arr + i);

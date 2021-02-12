@@ -2,51 +2,42 @@
 #include <ctime>
 using namespace std;
 
-void FillArray(int** const arr, const int ROWS, const int COLLS, const int min = 1, const int max = 99) {
+void FillArray(int* const arr, const int ROWS, const int COLLS, const int min = 1, const int max = 99) {
 	for (int i = 0; i < ROWS; i++)
 	{
-		for (int j = 0; j < COLLS; j++) {
-			*(*(arr + i) + j) = rand() % (max - min) + min;
-		}
+		for (int j = 0; j < COLLS; j++)
+			*((arr + j) + (i * COLLS)) = rand() % (max - min) + min;
 	}
 }
 
-void PrintArray(int** const arr, const int ROWS, const int COLLS) {
+void PrintArray(int* const arr, const int ROWS, const int COLLS) {
 	for (int i = 0; i < ROWS; i++) {
 		for (int j = 0; j < COLLS; j++) {
-			printf("%2.d ", *(*(arr + i) + j));
+			printf("%2.d ", *((arr + j) + (i * COLLS)));
 		}
 		printf("\n");
 	}
 	printf("\b");
 }
 
-int** TurnArrayLeft(int** arr, int& rows, int& colls)
+int* TurnArrayLeft(int* arr, int& rows, int& colls)
 {
 	int a = rows;
 	rows = colls;
 	colls = a;
-
-	int** NewArr = new int* [rows];
-	for (int i = 0; i < rows; i++)
-		*(NewArr + i) = new int[colls] {};
+	int x = 0;
+	int* NewArr = new int[rows * colls]{};
 
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < colls; j++)
 		{
-			//*(*(Arr + i) + j)
-			*(*(NewArr + i) + j) = *(*(arr + j) + (rows - i - 1));// [j] [rows - i - 1] ;
-			//cout << arr[j][rows - i - 1] << " ";
+			*((NewArr + j) + (i * colls)) = *(arr + (j * colls + (rows - 1 - i)));//arr[j][rows - i - 1
 		}
-		//cout << endl;
+
 	}
-	//cout << endl;
 
-	for (int i = 0; i < colls; i++)
-		delete[] * (arr + i);
 	delete arr;
-
 	return NewArr;
 }
 
@@ -55,15 +46,14 @@ int main()
 	setlocale(LC_ALL, "ru");
 	srand(time(NULL));
 
-	int rows, colls;
-	cout << "rows > ";
-	cin >> rows;
-	cout << "colls > ";
-	cin >> colls;
+	int rows = 5, colls = 6;
+	//cout << "rows > ";
+	//cin >> rows;
+	//cout << "colls > ";
+	//cin >> colls;
 
-	int** Arr = new int* [rows];
-	for (int i = 0; i < rows; i++)
-		Arr[i] = new int[colls];
+	int* Arr = new int[rows * colls];
+
 	FillArray(Arr, rows, colls);
 	printf("Original Array:\n");
 	PrintArray(Arr, rows, colls);
@@ -74,9 +64,6 @@ int main()
 
 	printf("Turned Array:\n");
 	PrintArray(Arr, rows, colls);
-
-	for (int i = 0; i < rows; i++)
-		delete[] *(Arr + i);
 
 	delete[] Arr;
 	return 0;
