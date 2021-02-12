@@ -19,4 +19,5 @@ int main()
 	int* Arr = new int[size];
 	FillArray(Arr, size, 0, 10);
 	cout << Di(Arr, size);
+	DeleteArray(Arr);
 }
