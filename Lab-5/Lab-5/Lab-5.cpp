@@ -32,9 +32,9 @@ int* TurnArrayLeft(int* arr, int& rows, int& colls)
 	{
 		for (int j = 0; j < colls; j++)
 		{
-			*((NewArr + j) + (i * colls)) = *(arr + (j * colls + (rows - 1 - i)));//arr[j][rows - i - 1
+			x = *(arr + (j * colls + (rows - 1 - i)));
+			*((NewArr + j) + (i * colls)) = *((arr - ((colls - rows)*j))+(j * colls + (rows - 1 - i)));//arr[j][rows - i - 1
 		}
-
 	}
 
 	delete arr;
@@ -46,11 +46,11 @@ int main()
 	setlocale(LC_ALL, "ru");
 	srand(time(NULL));
 
-	int rows = 5, colls = 6;
-	//cout << "rows > ";
-	//cin >> rows;
-	//cout << "colls > ";
-	//cin >> colls;
+	int rows = 9, colls = 5;
+	cout << "rows > ";
+	cin >> rows;
+	cout << "colls > ";
+	cin >> colls;
 
 	int* Arr = new int[rows * colls];
 
