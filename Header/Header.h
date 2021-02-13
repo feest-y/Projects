@@ -85,10 +85,10 @@ void FillArrayReverse(T* const arr, const int size) {
 	}
 }
 
-int InputSize() {
+int InputSize(string msg = "Input amount of element in Array > ") {
 	setlocale(LC_ALL, "ru");
 	int size = 0;
-	cout << "Input amount of element in Array > ";
+	cout << msg;
 	cin >> size;
 	return size;
 }
