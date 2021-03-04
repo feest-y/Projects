@@ -4,12 +4,11 @@
 #include <cstdio>
 #include <String>
 #define zxc printf("|")
-#define zxcf fout.width(1);fout << "|"
 
 using namespace std;
 
 
-int StrToInt(string b) {
+int StrToInt(char* b) {
 	int x = 0, counter = 0;;
 	for (int i = 0; b[i] != '\0'; i++)
 	{
@@ -31,20 +30,30 @@ int StrToInt(string b) {
 
 struct Company
 {
-	string input = " ";
-	string name = "Abc";
+	char input[255]{};
+	char name[255]{};
 	char type = name[0];
-	float area = 0;
 	int workers = 0;
+	float area = 0;
+	void ConvertName() {
+		int i;
+		for (i = 0; name[i] != '\0'; i++) {}
 
+		for (int j = 0; j < 13; j++)
+		{
+			name[12 - i + j] = name[j];
+			if (j < (12 - i)) {
+				name[j] = ' ';
+			}
+		}
+	}
 	void SetCompany(bool x = 0) {
 		if (x)
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < rand() % 5; i++)
 				name[i] = rand() % (122 - 65) + 65;
-
-		
 			type = rand() % (122 - 65) + 65;
+			ConvertName();
 			workers = rand() % 12700;
 			area = (float)(rand() % 1270);
 		}
@@ -52,6 +61,7 @@ struct Company
 		else {
 			cout << "Company name > ";
 			cin >> name;
+			ConvertName();
 			cout << "Company type > ";
 			cin >> input; type = input[0];
 			cout << "Company workers > ";
@@ -78,72 +88,127 @@ struct Company
 		printf("\n");
 		cout.width(1);
 	}
-	void PrintFromFile(string filename, short position = 0) {
-		ifstream fin;
-		fin.open(filename);
-		if (fin.is_open())
+	void PrintFromFile(char* filename, short& notes, int num = 0) {
+		char line[60]{};
+		char buff[50]{};
+		short position = 0;
+		FILE* file = fopen(filename, "r");
+
+		for (int i = 0; i < num; i++)
 		{
-			short i = 0;
-			string Buff = "";
-			for (i = 1; !fin.eof(); i++)
-			{
-				getline(fin, Buff);
-				if (position == 0 || i == position)
-					cout << Buff << "\n";
-			}
-			if (i <= position)
-				cout << "Запись отсутствует\n";
+			fgets(line, 60, file);
 		}
-		else cout << "File is not open";
-	}
-	void CompanyToFile(string filename, short position = 0) {
-		ofstream fout;
-
-		if (position == 0)
-			fout.open(filename);
-		else if (position == 1)
-			fout.open('1' + filename, ofstream::app);
-		else if (position == 2) {
-			fout.open(filename, ofstream::app);
-			fout << "\n";
-		}
-
-		zxcf;
-		fout.width(11);
-		fout << name;
-		zxcf;
-		fout.width(7);
-		fout << type;
-		zxcf;
-		fout.width(10);
-		fout << workers;
-		zxcf;
-		fout.width(13);
-		fout << area;
-		zxcf;
-
-		if (position == 1)
+		for (int j = 0; j < 50; j++)
 		{
-			ifstream fin;
-			fin.open(filename);
-
-			if (fin.is_open())
+			if (line[j] == '|')
 			{
-				string Buff = "";
-				while (!fin.eof())
+				position++;
+				if (position == 1)
 				{
-					fout << "\n";
-					getline(fin, Buff);
-					fout << Buff;
+					for (int k = 0; k <= 12; k++)
+					{
+						buff[k] = line[j + k];
+					}
+					for (int k = 0; k <= 12; k++)
+					{
+						name[k] = buff[k + 1];
+					}
+				}
+				else if (position == 2) {
+
+					type = line[j + 7];
+				}
+				else if (position == 3) {
+					for (int k = 0; k <= 10; k++)
+					{
+						buff[k] = line[j + k];
+					}
+					workers = StrToInt(buff);
+				}
+				else if (position == 4) {
+					for (int k = 0; k <= 13; k++)
+					{
+						if (line[j + k == ','])
+						{
+
+						}
+						buff[k] = line[j + k];
+					}
+					area = StrToInt(buff);
 				}
 			}
-			fin.close();
-			fout.close();
-			remove("Company.txt");
-			position = rename("1Company.txt", "Company.txt");
 		}
-		else
-			fout.close();
+		Print();
 
 	}
+	void CompanyToFile(char* filename, short& notes, short mode = 0) {
+		if (mode == 0)
+		{
+			FILE* file = fopen(filename, "a");
+			if (notes != 0)
+				fprintf(file, "\n");
+
+			fprintf(file, "|");
+			fprintf(file, "%s", name);
+			fprintf(file, "|");
+			fprintf(file, "%7.c", type);
+			fprintf(file, "|");
+			fprintf(file, "%10.d", workers);
+			fprintf(file, "|");
+			fprintf(file, "%13.3f", area);
+			fprintf(file, "|");
+			fclose(file);
+
+			notes++;
+		}
+		else if (mode == 1)
+		{
+			FILE* newfile = fopen(1 + filename, "a");
+			FILE* file = fopen(filename, "a");
+			fprintf(file, "");
+			fclose(file);
+
+			fprintf(newfile, "|");
+			fprintf(newfile, "%s", name);
+			fprintf(newfile, "|");
+			fprintf(newfile, "%7.c", type);
+			fprintf(newfile, "|");
+			fprintf(newfile, "%10.d", workers);
+			fprintf(newfile, "|");
+			fprintf(newfile, "%13.3f", area);
+			fprintf(newfile, "|");
+			if (notes != 0)
+				fprintf(newfile, "\n");
+			file = fopen(filename, "r");
+			char line[255]{};
+
+			for (int i = 0; i < notes; i++)
+			{
+				fgets(line, 255, file);
+				fprintf(newfile, "%s", line);
+			}
+			fclose(file);
+			fclose(newfile);
+			remove(filename);
+			rename(1 + filename, filename);
+			remove(1 + filename);
+			notes++;
+		}
+		else if (mode == 2) {
+			FILE* file = fopen(filename, "w");
+			fprintf(file, "|");
+			fprintf(file, "%s", name);
+			fprintf(file, "|");
+			fprintf(file, "%7.c", type);
+			fprintf(file, "|");
+			fprintf(file, "%10.d", workers);
+			fprintf(file, "|");
+			fprintf(file, "%13.3f", area);
+			fprintf(file, "|");
+			fclose(file);
+
+			notes = 1;
+		}
+	}
+
 };

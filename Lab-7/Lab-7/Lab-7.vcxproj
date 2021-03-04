@@ -144,6 +144,9 @@
   <ItemGroup>
     <ClInclude Include="Company.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Company.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

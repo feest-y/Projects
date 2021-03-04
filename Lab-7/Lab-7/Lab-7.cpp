@@ -1,7 +1,6 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 //#define DEBUG
 #define _CLS_
-#define PRINT_TYPE
 #include <conio.h>
 #include <windows.h>
 #include "Company.h"
@@ -9,7 +8,12 @@
 int main()
 {
 	setlocale(LC_ALL, "ru");
-
+	srand(time(0));
+	short notes = 0;
+	char* filename = new char[255]{};
+	strcpy(filename, "Company.txt");
+	remove(filename);
+	remove(1 + filename);
 tryAgain:
 	system("cls");
 	cout << "1. Ввод с экрана и запись в файл.\n";
@@ -21,11 +25,6 @@ tryAgain:
 	cout << "7. Выход из программы.\n";
 
 	int N = _getch();
-
-#ifdef DEBUG
-	cout << N << endl;
-#endif 
-
 	switch (N - 48)
 	{
 	case 1: {
@@ -33,8 +32,13 @@ tryAgain:
 		system("cls");
 #endif 
 		Company A;
-		A.SetCompany();
-		A.CompanyToFile("Company.txt");
+		cout << "Количество записей > "; cin >> N;
+		for (int i = 1; i <= N; i++)
+		{
+			printf("\n%d: \n", i);
+			A.SetCompany();
+			A.CompanyToFile(filename, notes, 2);
+		}
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -45,8 +49,7 @@ tryAgain:
 #endif 
 		Company A;
 		A.SetCompany(1);
-		A.CompanyToFile("Company.txt");
-
+		A.CompanyToFile(filename, notes, 2);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -57,7 +60,7 @@ tryAgain:
 #endif 
 		Company A;
 		A.SetCompany();
-		A.CompanyToFile("Company.txt", 1);
+		A.CompanyToFile(filename, notes, 1);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -68,7 +71,7 @@ tryAgain:
 #endif 
 		Company A;
 		A.SetCompany();
-		A.CompanyToFile("Company.txt", 2);
+		A.CompanyToFile(filename, notes);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -81,7 +84,7 @@ tryAgain:
 		cout << "N > ";
 		cin >> n;
 		Company A;
-		A.PrintFromFile("Company.txt", n);
+		A.PrintFromFile(filename, notes, n);
 		system("pause");
 		cout << "Done !\n";
 		Sleep(250);
@@ -92,7 +95,10 @@ tryAgain:
 		system("cls");
 #endif 
 		Company A;
-		A.PrintFromFile("Company.txt");
+		for (int i = 0; i < notes; i++)
+		{
+			A.PrintFromFile(filename, notes, i);
+		}
 		system("pause");
 		cout << "Done !\n";
 		Sleep(250);
@@ -113,5 +119,6 @@ tryAgain:
 
 	default:goto tryAgain;
 	}
+	delete[] filename;
 	return 0;
 }
