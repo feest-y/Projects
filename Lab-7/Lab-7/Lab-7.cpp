@@ -81,12 +81,12 @@ tryAgain:
 		system("cls");
 #endif 
 		short n = 0;
-		do 
+		do
 		{
 			system("cls");
 			cout << "N > ";
 			cin >> n;
-		} 		while (n > notes || n < 0);
+		} while (n > notes || n < 0);
 		Company A;
 		A.PrintFromFile(filename, notes, n);
 		system("pause");
