@@ -18,8 +18,7 @@ float StrToFloat(char* b) {
 	{
 		if (b[i] >= 48 && b[i] <= 57 && counter == 0)
 		{
-			x *= 10;
-			x += (b[i] - 48);
+			x *= 10;			x += (b[i] - 48);
 		}
 
 		if (b[i] == ',' || b[i] == '.')
@@ -165,6 +164,7 @@ struct Company
 						buff[k] = line[j + k];
 					}
 					area = StrToFloat(buff);
+					j = 50;
 				}
 			}
 		}
