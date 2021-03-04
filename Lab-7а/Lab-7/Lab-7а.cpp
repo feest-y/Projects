@@ -57,7 +57,7 @@ int main()
 	file = fopen(filename, "r");
 	for (int i = 0; i < 25; i++)
 	{
-		fscanf(file, "%c", &x);
+		j = fscanf(file, "%c", &x);
 		cout << x;
 	}
 
