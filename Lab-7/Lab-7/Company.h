@@ -3,13 +3,17 @@
 #include <fstream>
 #include <cstdio>
 #include <String>
+#include <cmath>
 #define zxc printf("|")
 
 using namespace std;
 
 
-int StrToInt(char* b) {
-	int x = 0, counter = 0;;
+
+float StrToFloat(char* b) {
+	int x = 0;
+	bool counter = 0;
+	short sign = 0;
 	for (int i = 0; b[i] != '\0'; i++)
 	{
 		if (b[i] >= 48 && b[i] <= 57 && counter == 0)
@@ -17,13 +21,30 @@ int StrToInt(char* b) {
 			x *= 10;
 			x += (b[i] - 48);
 		}
-		/*else if (b[i] == 46 && b[i + 1] >= 48 && b[i + 1] <= 57) {
+
+		if (b[i] == ',' || b[i] == '.')
 			counter++;
+
+		if (counter != 0 && b[i] >= 48 && b[i] <= 57)
+		{
+			x *= 10;
+			x += (b[i] - 48);
+			sign++;
 		}
-		else if (counter != 0 && b[i] >= 48 && b[i] <= 57) {
-			x += (b[i] - 48)/(pow(10,counter));
-			counter++;
-		}*/
+
+	}
+	return x / pow(10, sign);
+}
+
+int StrToInt(char* b) {
+	int x = 0, counter = 0;
+	for (int i = 0; b[i] != '\0'; i++)
+	{
+		if (b[i] >= 48 && b[i] <= 57 && counter == 0)
+		{
+			x *= 10;
+			x += (b[i] - 48);
+		}
 	}
 	return x;
 }
@@ -55,7 +76,7 @@ struct Company
 			type = rand() % (122 - 65) + 65;
 			ConvertName();
 			workers = rand() % 12700;
-			area = (float)(rand() % 1270);
+			area = (float)(rand() % 1270) + ((float)(rand() % 1270)) / pow(10, rand() % 3);;
 		}
 
 		else {
@@ -67,7 +88,7 @@ struct Company
 			cout << "Company workers > ";
 			cin >> input; workers = StrToInt(input);
 			cout << "Company area > ";
-			cin >> input; area = (float)StrToInt(input);
+			cin >> input; area = StrToFloat(input);
 		}
 	}
 
@@ -98,6 +119,7 @@ struct Company
 		{
 			fgets(line, 60, file);
 		}
+
 		for (int j = 0; j < 50; j++)
 		{
 			if (line[j] == '|')
@@ -105,41 +127,49 @@ struct Company
 				position++;
 				if (position == 1)
 				{
-					for (int k = 0; k <= 12; k++)
+					for (int k = 0; k < 12; k++)
 					{
-						buff[k] = line[j + k];
+						buff[k] = line[k + 1];
 					}
-					for (int k = 0; k <= 12; k++)
+
+					for (int k = 0; k < 12; k++)
 					{
-						name[k] = buff[k + 1];
+						name[k] = buff[k];
 					}
+					j += 12;
 				}
 				else if (position == 2) {
 
 					type = line[j + 7];
+					j += 7;
 				}
 				else if (position == 3) {
-					for (int k = 0; k <= 10; k++)
+					j++;
+
+					for (short i = 0; i <= 4; i++)
+					{
+						buff[i + 8] = '\0';
+					}
+
+					for (int k = 0; k < 10; k++)
 					{
 						buff[k] = line[j + k];
 					}
 					workers = StrToInt(buff);
+					j += 9;
 				}
 				else if (position == 4) {
-					for (int k = 0; k <= 13; k++)
+					j++;
+					for (int k = 0; k < 13; k++)
 					{
-						if (line[j + k == ','])
-						{
-
-						}
 						buff[k] = line[j + k];
 					}
-					area = StrToInt(buff);
+					area = StrToFloat(buff);
 				}
 			}
 		}
-		Print();
 
+		Print();
 	}
 	void CompanyToFile(char* filename, short& notes, short mode = 0) {
 		if (mode == 0)

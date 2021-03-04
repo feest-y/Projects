@@ -81,8 +81,12 @@ tryAgain:
 		system("cls");
 #endif 
 		short n = 0;
-		cout << "N > ";
-		cin >> n;
+		do 
+		{
+			system("cls");
+			cout << "N > ";
+			cin >> n;
+		} 		while (n > notes || n < 0);
 		Company A;
 		A.PrintFromFile(filename, notes, n);
 		system("pause");
@@ -95,7 +99,7 @@ tryAgain:
 		system("cls");
 #endif 
 		Company A;
-		for (int i = 0; i < notes; i++)
+		for (int i = 1; i <= notes; i++)
 		{
 			A.PrintFromFile(filename, notes, i);
 		}
