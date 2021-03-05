@@ -1,6 +1,8 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
 #include <iostream>
-#define _CRT_SECURE_NO_WARNINGS
+
 
 void FillArray(int* const arr, const int size, const int min = 0, const int max = 9) {
 	for (int i = 0; i < size; i++) {
