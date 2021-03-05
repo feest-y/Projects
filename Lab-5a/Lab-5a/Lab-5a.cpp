@@ -3,12 +3,12 @@
 using namespace std;
 
 
-int* Sum(int** Arr, int* MinColls = 0, int* MaxRows = 0, const int rows = 9, const int colls = 9, int* SumGD = 0, int* MulPD = 0) {
+int* Sum(int** Arr, int* MinColls, int* MaxRows, int* SumGD, int* MulPD, const int rows = 9, const int colls = 9) {
 	int* result = new int[2];
 	int min = _I32_MAX;
 	int max = _I32_MIN;
-	SumGD = new int[1]{};
-	MulPD = new int[1]{ 1 };
+
+
 
 	MinColls = new int[colls];
 	MaxRows = new int[rows];
@@ -81,12 +81,22 @@ int main()
 
 	int* MinInColls = 0, * MaxInrows = 0;
 	int* result = new int[2];
+	int* SumGD = new int, * MulPD = new int;
 
-	result = Sum(Arr, MinInColls, MaxInrows, rows, colls);
+	*SumGD = 0;
+	*MulPD = 1;
+
+	result = Sum(Arr, MinInColls, MaxInrows, SumGD, MulPD, rows, colls);
 	printf("Sum > %d\nMul > %d", result[0], result[1]);
 
+	delete SumGD;
+	delete MulPD;
+	SumGD = nullptr;
+	MulPD = nullptr;
+	delete[] result;
 	for (int i = 0; i < rows; i++)
 		delete[] Arr[i];
 	delete[] Arr;
+	Arr = nullptr;
 	return 0;
 }
