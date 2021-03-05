@@ -32,13 +32,12 @@ int main()
 	int* Arr = new int[size] {};
 	int(*Pointer)(int*, const int);
 
-	FillArray(Arr, size,-10,10);
+	FillArray(Arr, size, -10, 10);
 	PrintArray(Arr, size);
 	Pointer = Sum;
 	cout << "\nSum >" << Pointer(Arr, size);
 
 
 	Pointer = Mul;
-	Pointer(Arr, size);
-	cout << "\nMul >" << Pointer(Arr, size);
+	cout << "\nMul >" << Pointer(Arr, size) << "\n";
 }
