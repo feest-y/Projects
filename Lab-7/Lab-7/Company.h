@@ -108,7 +108,7 @@ struct Company
 		printf("\n");
 		cout.width(1);
 	}
-	void PrintFromFile(char* filename, short& notes, int num = 0) {
+	void PrintFromFile(char* filename, int num = 0) {
 		char line[60]{};
 		char buff[50]{};
 		short position = 0;
