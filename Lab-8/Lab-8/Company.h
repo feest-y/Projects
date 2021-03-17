@@ -1,8 +1,6 @@
 #pragma once
 #include <iostream>
-#include <fstream>
 #include <cstdio>
-#include <String>
 #include <cmath>
 #define zxc printf("|")
 
@@ -48,13 +46,15 @@ int StrToInt(char* b) {
 	return x;
 }
 
-struct Company
+class Company
 {
-	char input[255]{};
-	char name[255]{};
+public:
+	char input[50]{};
+	char name[50]{};
 	char type = name[0];
 	int workers = 0;
 	float area = 0;
+
 	void ConvertName() {
 		int i;
 		for (i = 0; name[i] != '\0'; i++) {}
@@ -67,14 +67,18 @@ struct Company
 			}
 		}
 	}
+
 	void SetCompany(bool x = 0) {
 		if (x)
 		{
+			for (int i = 0; i < sizeof(name) - 1; i++)
+				name[i] = '\0';
+
 			for (int i = 0; i < rand() % 5; i++)
 				name[i] = rand() % (122 - 65) + 65;
 			type = rand() % (122 - 65) + 65;
 			ConvertName();
-			workers = rand() % 12700;
+			workers = rand() % 30 + 1;
 			area = (float)(rand() % 1270) + ((float)(rand() % 1270)) / pow(10, rand() % 3);;
 		}
 
@@ -108,6 +112,7 @@ struct Company
 		printf("\n");
 		cout.width(1);
 	}
+
 	void PrintFromFile(char* filename, short& notes, int num = 0) {
 		char line[60]{};
 		char buff[50]{};
@@ -171,6 +176,7 @@ struct Company
 
 		Print();
 	}
+
 	void CompanyToFile(char* filename, short& notes, short mode = 0) {
 		if (mode == 0)
 		{

@@ -1,16 +1,17 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CLS_
 #include "..\..\Header\Header.h"
+#include "List.h"
 #include <conio.h>
 #include <windows.h>
-#include "Company.h"
+
 
 int main()
 {
 	Standart();
-	char* filename = new char[255]{};
-	strcpy(filename, "Company.txt");
+	char filename[10]{};
+	strcpy(filename, "List.txt");
 	remove(filename);
-	remove(1 + filename);
 tryAgain:
 	system("cls");
 	cout << "1. Создание списка.\n";
@@ -32,6 +33,8 @@ tryAgain:
 		system("cls");
 #endif 
 
+		cout << "Количество строк > "; cin >> N;
+		head = Create(N);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -40,6 +43,8 @@ tryAgain:
 #ifdef _CLS_ 
 		system("cls");
 #endif 
+		PrintList(head);
+		_getch();
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -48,6 +53,10 @@ tryAgain:
 #ifdef _CLS_ 
 		system("cls");
 #endif 
+		cout << "Workers criterion > ";
+		cin >> N;
+		PrintCriterion(head, N);
+		_getch();
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -56,6 +65,10 @@ tryAgain:
 #ifdef _CLS_ 
 		system("cls");
 #endif 
+		cout << "Position > ";
+		cin >> N;
+		AddInList(N);
+		//_getch();
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -64,6 +77,9 @@ tryAgain:
 #ifdef _CLS_ 
 		system("cls");
 #endif 
+		cout << "Position > ";
+		cin >> N;
+		DeleteInList(N);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -72,6 +88,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
+		SortList();
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -80,6 +97,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
+		ListToFile(head,filename);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -97,10 +115,10 @@ tryAgain:
 		system("cls");
 #endif 
 
-		cout << "Done !\n";
+		cout << "Done !";
 		Sleep(250);
 		break;
-}
+	}
 
 	case -45: return 0;
 	case 27 - 48: return 0;
@@ -108,6 +126,5 @@ tryAgain:
 	default:goto tryAgain;
 	}
 
-	delete[] filename;
 	r0;
 }
