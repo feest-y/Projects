@@ -11,17 +11,16 @@ int main()
 	Standart();
 	char filename[10]{};
 	strcpy(filename, "List.txt");
-	remove(filename);
 tryAgain:
 	system("cls");
 	cout << "1. Создание списка.\n";
 	cout << "2. Печать списка.\n";
-	cout << "3. Поиск по критерию (*критерий*).\n";
+	cout << "3. Поиск по количеству сотрудников.\n";
 	cout << "4. Добавление элемента (в любое заданное место).\n";
 	cout << "5. Удаление элемента по номеру.\n";
 	cout << "6. Сортировка.\n";
 	cout << "7. Запись нового списка в файл.\n";
-	cout << "8. Печать нового списка из файла.\n";
+	cout << "8. Создание нового списка из файла.\n";
 	cout << "9. Выход из программы.\n";
 
 
@@ -34,7 +33,7 @@ tryAgain:
 #endif 
 
 		cout << "Количество строк > "; cin >> N;
-		head = Create(N);
+		head = Create(head,N);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -97,7 +96,8 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-		ListToFile(head,filename);
+		remove(filename);
+		ListToFile(head, filename);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -106,6 +106,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
+		head = CreateFromFile(head,filename,ListElements);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;

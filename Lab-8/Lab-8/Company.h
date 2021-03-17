@@ -7,7 +7,6 @@
 using namespace std;
 
 
-
 float StrToFloat(char* b) {
 	int x = 0;
 	bool counter = 0;
@@ -62,9 +61,9 @@ public:
 		for (int j = 0; j < 13; j++)
 		{
 			name[12 - i + j] = name[j];
-			if (j < (12 - i)) {
+			if (j < (12 - i)) 
 				name[j] = ' ';
-			}
+			
 		}
 	}
 
@@ -113,16 +112,20 @@ public:
 		cout.width(1);
 	}
 
-	void PrintFromFile(char* filename, short& notes, int num = 0) {
+	void SetFromFile(char* filename, int string = 1) {
 		char line[60]{};
 		char buff[50]{};
+		for (short i = 0; i < 50; i++)
+			name[i] = '\0';
+		
+		for (short i = 0; i < 50; i++)
+			input[i] = '\0';
+
 		short position = 0;
 		FILE* file = fopen(filename, "r");
 
-		for (int i = 0; i < num; i++)
-		{
+		for (int i = 0; i < string; i++)
 			fgets(line, 60, file);
-		}
 
 		for (int j = 0; j < 50; j++)
 		{
@@ -174,7 +177,7 @@ public:
 			}
 		}
 
-		Print();
+		fclose(file);
 	}
 
 	void CompanyToFile(char* filename, short& notes, short mode = 0) {
