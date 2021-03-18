@@ -73,11 +73,11 @@ public:
 			for (int i = 0; i < sizeof(name) - 1; i++)
 				name[i] = '\0';
 
-			for (int i = 0; i < rand() % 5; i++)
+			for (int i = 0; i < rand() % 5 + 1; i++)
 				name[i] = rand() % (122 - 65) + 65;
 			type = rand() % (122 - 65) + 65;
 			ConvertName();
-			workers = rand() % 30 + 1;
+			workers = rand() % 100 + 1;
 			area = (float)(rand() % 1270) + ((float)(rand() % 1270)) / pow(10, rand() % 3);;
 		}
 

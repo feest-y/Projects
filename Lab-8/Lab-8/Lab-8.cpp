@@ -33,7 +33,7 @@ tryAgain:
 #endif 
 
 		cout << "Количество строк > "; cin >> N;
-		head = Create(head,N);
+		head = Create(head, N);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -54,8 +54,9 @@ tryAgain:
 #endif 
 		cout << "Workers criterion > ";
 		cin >> N;
-		PrintCriterion(head, N);
-		_getch();
+		if (!PrintCriterion(head, N))
+			cout << "head = nullptr !\n";
+		system("pause");
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -106,7 +107,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-		head = CreateFromFile(head,filename,ListElements);
+		head = CreateFromFile(head, filename, ListElements);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
