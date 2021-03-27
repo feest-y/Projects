@@ -20,34 +20,65 @@ struct List
 {
 	Company data;
 	List* next = nullptr;
+
 };
 
 List* head = nullptr; // адрес головы списка
 short ListElements = 0;
-List* Create(short n = 1) //функци€ создани€ списка (возвращает адрес его головы)
+List* Create(List* head, short n = 1) //функци€ создани€ списка (возвращает адрес его головы)
 {
-	if (n == 0)
+	if (n <= 0)
+	{
+		cout << "Wrong amount of elements !\n";
+		return head;
+	}
+
+	if (head != nullptr)
+		free(head);
+
+	List* p, * pred;
+	head = p = pred = (List*)malloc(sizeof(List));
+	head->data.SetCompany(true);
+
+	for (short i = 1; i < n; i++) {
+		p = (List*)malloc(sizeof(List));
+		p->data.SetCompany(1);
+
+		pred->next = p; //ссылка из предыдущей записи на текущую
+		pred = p;	// сохранение адреса текущей записи в поле предыдущей
+					// текуща€ запись становитс€ предыдущей
+	}
+
+	ListElements = n;
+	p->next = nullptr;
+	return head;
+}
+
+List* CreateFromFile(List* head, char* filename, int elements = ListElements) {
+	if (elements == 0)
 		return head;
 
 	if (head != nullptr)
 		free(head);
 
-	List* p, * pred; // pred Ц указатель на предыдущую структуру
-	head = p = pred = (List*)malloc(sizeof(List)); //выдел€ем пам€ть дл€ первой записи
-	//printf("data: "); scanf("%s", head->data.name);
-	head->data.SetCompany(true);
-	for (short i = 1; i < n; i++)
-	{
+	List* p, * pred;
+	head = p = pred = (List*)malloc(sizeof(List));
+	head->data.SetFromFile(filename);
+
+	for (short i = 2; i < elements; i++) {
 		p = (List*)malloc(sizeof(List));
-		//printf("data: "); scanf("%s", p->data.name);
-		p->data.SetCompany(1);
+		p->data.SetFromFile(filename, i);
+
 		pred->next = p; //ссылка из предыдущей записи на текущую
 		pred = p;	// сохранение адреса текущей записи в поле предыдущей
 					// текуща€ запись становитс€ предыдущей
 	}
-	ListElements = n;
+
+	ListElements = elements;
 	p->next = nullptr;
 	return head;
+
+
 }
 
 bool PrintCriterion(List* head, int criterion = 0)
@@ -69,7 +100,11 @@ bool PrintCriterion(List* head, int criterion = 0)
 	}
 	_LINE_;
 	if (counter == 0)
+	{
 		system("cls");
+		cout << "There is no companies with " << criterion << " workers !\n";
+	}
+
 	return true;
 }
 
@@ -135,8 +170,7 @@ bool DeleteInList(int position) {
 	return true;
 }
 
-
-bool SortList()
+bool SortList(List* head)
 {
 	if (head == nullptr)
 		return false;
@@ -202,7 +236,6 @@ bool PrintList(List* head)
 	List* current = head;
 	PrintHead();
 	while (current != nullptr) {
-		//printf("data: %s\n", current->data.name);
 		current->data.Print();
 		current = current->next;
 	}
@@ -211,7 +244,7 @@ bool PrintList(List* head)
 	return true;
 }
 
-bool ListToFile(List* head,char* filename)
+bool ListToFile(List* head, char* filename)
 {
 	if (head == nullptr)
 		return false;
@@ -220,7 +253,7 @@ bool ListToFile(List* head,char* filename)
 	List* current = head;
 	while (current != nullptr)
 	{
-		current->data.CompanyToFile(filename,notes);
+		current->data.CompanyToFile(filename, notes);
 		current = current->next;
 	}
 	return true;
