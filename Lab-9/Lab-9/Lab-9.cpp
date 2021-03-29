@@ -117,6 +117,7 @@ tryAgain:
 		system("cls");
 #endif 
 		cout << "Not yet!\n";
+		SortList2();
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;

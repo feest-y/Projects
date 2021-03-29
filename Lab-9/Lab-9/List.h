@@ -206,7 +206,7 @@ bool DeleteInList(int position) {
 		current->prev->next = current->next;
 		current->next = nullptr;
 		current->next = nullptr;
-		delete current;		
+		delete current;
 	}
 	ListElements--;
 	return true;
@@ -271,6 +271,44 @@ bool SortList()
 	return true;
 }
 
+
+bool SortList2() {
+	if (head == nullptr)
+		return false;
+	Company buff;
+	List* current = head, * current2;
+	int min = INT32_MAX, counter = 0;
+	bool isMin = true;
+	while (isMin && !(counter >= ListElements))
+	{
+		current = head;
+		isMin = false;
+		min = INT32_MAX;
+		while (current->next != nullptr)
+		{
+			if (current->data.workers < min)
+			{
+				isMin = true;
+				min = current->data.workers;
+				buff = current->data;
+
+				
+			}
+
+			current = current->next;
+		}
+		current2 = head;
+		for (int i = 0; i < counter || current2->next != nullptr; i++)
+			current2 = current2->next;
+
+		current->data = current2->data;
+		current2->data = buff;
+		counter++;
+	}
+
+
+	return true;
+}
 bool PrintList(List* elem)
 {
 	if (elem == nullptr)
