@@ -130,6 +130,7 @@ tryAgain:
 		ListToFile(head, filename);
 		cout << "Done !";
 		Sleep(250);
+		goto tryAgain;
 	}
 	case 0: {
 #ifdef _CLS_
@@ -139,6 +140,7 @@ tryAgain:
 
 		cout << "Done !";
 		Sleep(250);
+		goto tryAgain;
 	}
 
 	case -45: return 0;

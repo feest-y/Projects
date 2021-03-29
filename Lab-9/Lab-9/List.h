@@ -26,11 +26,6 @@ struct List
 		next = nullptr;
 		prev = nullptr;
 	}
-
-	~List() {
-		delete next;
-		delete prev;
-	}
 };
 
 List* head = nullptr; // адрес головы списка
@@ -191,18 +186,27 @@ bool DeleteInList(int position) {
 		head = head->next;
 		head->prev->next = nullptr;
 		head->prev = nullptr;
+		delete clean;
+	}
+	else if (position == ListElements) {
+		clean = tail;
 
+		tail = tail->prev;
+		tail->next->prev = nullptr;
+		tail->next = nullptr;
 		delete clean;
 	}
 	else {
 		List* current = head;
 
-		for (int i = 2; i < position; i++)
+		for (int i = 2; i <= position; i++)
 			current = current->next;
 
-		clean = current->next;
-		current->next = current->next->next;
-		//delete clean;
+		current->next->prev = current->next->prev->prev;
+		current->prev->next = current->next;
+		current->next = nullptr;
+		current->next = nullptr;
+		delete current;		
 	}
 	ListElements--;
 	return true;
