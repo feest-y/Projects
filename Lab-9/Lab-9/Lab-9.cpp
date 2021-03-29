@@ -5,7 +5,6 @@
 #include <conio.h>
 #include <windows.h>
 
-
 int main()
 {
 	Standart();
@@ -15,9 +14,9 @@ tryAgain:
 	system("cls");
 	cout << "1. Создание списка.\n";
 	cout << "2. Печать списка с начала.\n";
-	cout << "3. Поиск по количеству сотрудников.\n";
-	cout << "4. Поиск по критерию с начала списка.\n";
-	cout << "5. Поиск по критерию с конца списка.\n";
+	cout << "3. Печать списка с конца.\n";
+	cout << "4. Поиск по количеству сотрудников с начала списка.\n";
+	cout << "5. Поиск по количеству сотрудников с конца списка.\n";
 	cout << "6. Добавление элемента (в любое заданное место).\n";
 	cout << "7. Удаление  любого элемента.\n";
 	cout << "8. Сортировка.\n";
@@ -67,6 +66,12 @@ tryAgain:
 #ifdef _CLS_ 
 		system("cls");
 #endif 
+
+		N = InputSize("workers > ");
+		if (!PrintCriterion(head, N))
+			cout << "-_-_-_-_-_-_-_-_-_-_-_-_-Empty-_-_-_-_-_-_-_-_-_-_-_-_-\n";
+		system("pause");
+
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -75,6 +80,12 @@ tryAgain:
 #ifdef _CLS_ 
 		system("cls");
 #endif 
+
+		N = InputSize("workers > ");
+		if (!PrintCriterion(tail, N))
+			cout << "-_-_-_-_-_-_-_-_-_-_-_-_-Empty-_-_-_-_-_-_-_-_-_-_-_-_-\n";
+		system("pause");
+
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -83,6 +94,8 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
+		N = InputSize("position > ");
+		AddInList(N);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;

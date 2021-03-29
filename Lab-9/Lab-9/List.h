@@ -81,22 +81,39 @@ List* CreateFromFile(char* filename, int elements = ListElements) {
 	return head;
 }
 
-bool PrintCriterion(List* head, int criterion = 0)
+bool PrintCriterion(List* element, int criterion = 0)
 {
-	if (head == nullptr)
+	if (element == nullptr)
 		return false;
-	List* current = head;
+	List* current = element;
 	char counter = 0;
 	PrintHead();
-	while (current != nullptr) {
 
-		if (current->data.workers == criterion)
-		{
-			current->data.Print();
-			counter++;
+	if (element->prev == nullptr)
+	{
+
+		while (current != nullptr) {
+
+			if (current->data.workers == criterion)
+			{
+				current->data.Print();
+				counter++;
+			}
+
+			current = current->next;
 		}
+	}
+	else if (element->next == nullptr) {
+		while (current != nullptr) {
 
-		current = current->next;
+			if (current->data.workers == criterion)
+			{
+				current->data.Print();
+				counter++;
+			}
+
+			current = current->prev;
+		}
 	}
 	_LINE_;
 	if (counter == 0)
@@ -122,6 +139,7 @@ bool AddInList(int position) {
 
 	if (position <= 1)
 	{
+		head->prev = NewElement;
 		NewElement->next = head;
 		head = NewElement;
 	}
@@ -132,8 +150,9 @@ bool AddInList(int position) {
 			current = current->next;
 
 		NewElement->next = current->next;
-
-		current->next = NewElement;
+		NewElement->prev = current;
+		current->next->prev=NewElement;
+		current->next=NewElement;
 
 	}
 	ListElements++;
