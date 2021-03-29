@@ -115,7 +115,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-
+		cout << "Not yet!\n";
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -124,6 +124,9 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
+		
+		remove(filename);
+		ListToFile(head, filename);
 		cout << "Done !";
 		Sleep(250);
 	}
@@ -131,6 +134,8 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
+		cout << "Not yet!\n";
+
 		cout << "Done !";
 		Sleep(250);
 	}
