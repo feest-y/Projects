@@ -1,8 +1,10 @@
 ﻿#include "..\..\Header\Header.h"
 
 class Sum {
-private:
-	int* x, * y, * sum;
+	//private:
+public:
+	int* x = new int, * y = new int, * sum = new int;
+
 public:
 	void Init() {
 		*x = InputSize("x > ");
@@ -10,11 +12,12 @@ public:
 		cout << endl;
 	}
 	void Print() {
-		printf("x > %d\ny > %d\nsum > %d", *x, *y, *sum);
+		printf("x > %d\ny > %d\nsum > %d\n", *x, *y, *sum);
 	}
-	void CountS() {
+	void CountS(bool Print = false) {
 		*sum = *x + *y;
-		cout << sum << endl;
+		if (Print)
+			cout << *sum << endl;
 	}
 	Sum() {
 		*x = 0;
@@ -26,12 +29,12 @@ public:
 		*this->y = y;
 		*sum = x + y;
 	}
-	/*Sum(int* x, int* y, int* sum = nullptr) {
-		this->x = x;
-		this->y = y;
-		*sum = *x + *y;
-		this->sum = sum;
-	}*/
+	~Sum() {
+		delete x;
+		delete y;
+		delete sum;
+		cout << "\nDestructor: " << this;
+	}
 };
 
 int main()
@@ -44,5 +47,8 @@ int main()
 	A.CountS();
 	A.Print();
 
+
+	cout << "\npointerX > " << *A.x;
+	cout << "\npointerX > " << *A.y;
 	r0;
 }
