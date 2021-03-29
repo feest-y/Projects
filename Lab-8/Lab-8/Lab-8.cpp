@@ -1,6 +1,6 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #define _CLS_
-#include "..\..\Header\Header.h"
+#include "..\..\Functions\Functions.h"
 #include "List.h"
 #include <conio.h>
 #include <windows.h>
@@ -88,7 +88,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-		SortList();
+		SortList(head);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
