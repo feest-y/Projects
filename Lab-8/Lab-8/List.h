@@ -170,7 +170,7 @@ bool DeleteInList(int position) {
 	return true;
 }
 
-bool SortList(List* head)
+bool SortList()
 {
 	if (head == nullptr)
 		return false;

@@ -88,7 +88,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-		SortList(head);
+		SortList();
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
