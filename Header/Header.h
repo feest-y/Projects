@@ -22,6 +22,45 @@ void О() {
 
 #define r0 return 0
 
+float StrToFloat(char* b) {
+	int x = 0;
+	bool counter = 0;
+	short sign = 0;
+	for (int i = 0; b[i] != '\0'; i++)
+	{
+		if (b[i] >= 48 && b[i] <= 57 && counter == 0)
+		{
+			x *= 10;			x += (b[i] - 48);
+		}
+
+		if (b[i] == ',' || b[i] == '.')
+			counter++;
+
+		if (counter != 0 && b[i] >= 48 && b[i] <= 57)
+		{
+			x *= 10;
+			x += (b[i] - 48);
+			sign++;
+		}
+
+	}
+	return x / pow(10, sign);
+}
+
+int StrToInt(char* b) {
+	int x = 0, counter = 0;
+	for (int i = 0; b[i] != '\0'; i++)
+	{
+		if (b[i] >= 48 && b[i] <= 57 && counter == 0)
+		{
+			x *= 10;
+			x += (b[i] - 48);
+		}
+	}
+	return x;
+}
+
+
 void Standart() {
 	setlocale(LC_ALL, "ru");
 	srand(time(NULL));
