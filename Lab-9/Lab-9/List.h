@@ -136,6 +136,7 @@ bool AddInList(int position) {
 
 	List* NewElement = (List*)malloc(sizeof(List));
 	NewElement->data.SetCompany(0);
+	List* current;
 
 	if (position <= 1)
 	{
@@ -143,16 +144,22 @@ bool AddInList(int position) {
 		NewElement->next = head;
 		head = NewElement;
 	}
+	else if (position > ListElements) {
+		current = tail;
+		NewElement->next = nullptr;
+		NewElement->prev = tail;
+		tail->next = NewElement;
+		tail = NewElement;
+	}
 	else {
-		List* current = head;
-
+		current = head;
 		for (int i = 2; i < position; i++)
 			current = current->next;
 
 		NewElement->next = current->next;
 		NewElement->prev = current;
-		current->next->prev=NewElement;
-		current->next=NewElement;
+		current->next->prev = NewElement;
+		current->next = NewElement;
 
 	}
 	ListElements++;
@@ -175,6 +182,7 @@ bool DeleteInList(int position) {
 		head = head->next;
 		delete clean;
 	}
+
 	else {
 		List* current = head;
 
