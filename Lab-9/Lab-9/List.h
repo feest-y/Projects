@@ -24,8 +24,10 @@ struct List
 };
 
 List* head = nullptr; // адрес головы списка
+List* tail = nullptr; // адрес хвоста списка
 short ListElements = 0;
-List* Create(List* head, short n = 1) //функция создания списка (возвращает адрес его головы)
+
+List* Create(List* head, short n = 1)
 {
 	if (n <= 0)
 	{
@@ -36,21 +38,21 @@ List* Create(List* head, short n = 1) //функция создания списка (возвращает адре
 	if (head != nullptr)
 		free(head);
 
-	List* p, * pred;
-	head = p = pred = (List*)malloc(sizeof(List));
-	head->data.SetCompany(true);
+	List* current;
+	head = current = (List*)malloc(sizeof(List));
+	current->data.SetCompany(true);
+	head->prev = nullptr;
 
 	for (short i = 1; i < n; i++) {
-		p = (List*)malloc(sizeof(List));
-		p->data.SetCompany(1);
-
-		pred->next = p; //ссылка из предыдущей записи на текущую
-		pred = p;	// сохранение адреса текущей записи в поле предыдущей
-					// текущая запись становится предыдущей
+		current->next = (List*)malloc(sizeof(List));
+		current->next->prev = current;
+		current = current->next;
+		current->data.SetCompany(true);
 	}
 
 	ListElements = n;
-	p->next = nullptr;
+	current->next = nullptr;
+	tail = current;
 	return head;
 }
 
@@ -227,15 +229,27 @@ bool SortList()
 	return true;
 }
 
-bool PrintList(List* head)
+bool PrintList(List* elem)
 {
-	if (head == nullptr)
+	if (elem == nullptr)
 		return false;
-	List* current = head;
+
+	List* current = elem;
 	PrintHead();
-	while (current != nullptr) {
-		current->data.Print();
-		current = current->next;
+
+
+	if (elem->prev == nullptr)
+	{
+		while (current != nullptr) {
+			current->data.Print();
+			current = current->next;
+		}
+	}
+	else if (elem->next == nullptr) {
+		while (current != nullptr) {
+			current->data.Print();
+			current = current->prev;
+		}
 	}
 	_LINE_;
 	cout << "Elements > " << ListElements << endl;

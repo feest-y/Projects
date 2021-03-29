@@ -22,9 +22,9 @@ tryAgain:
 	cout << "7. Удаление  любого элемента.\n";
 	cout << "8. Сортировка.\n";
 	cout << "9. Запись нового списка в файл.\n";
-	cout << "10. Создание нового списка файла.\n";
-	cout << "0. Выход из программы.\n";
-	
+	cout << "0. Создание нового списка файла.\n";
+	cout << "<ESC> Выход из программы <ESC>\n";
+
 
 	int N = _getch();
 	switch (N - 48)
@@ -44,7 +44,10 @@ tryAgain:
 #ifdef _CLS_ 
 		system("cls");
 #endif 
-		
+		if (!PrintList(head))
+			cout << "-_-_-_-_-_-_-_-_-_-_-_-_-Empty-_-_-_-_-_-_-_-_-_-_-_-_-\n";
+		system("pause");
+
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -53,6 +56,9 @@ tryAgain:
 #ifdef _CLS_ 
 		system("cls");
 #endif 
+		if (!PrintList(tail))
+			cout << "-_-_-_-_-_-_-_-_-_-_-_-_-Empty-_-_-_-_-_-_-_-_-_-_-_-_-\n";
+		system("pause");
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -85,7 +91,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-		
+
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -94,7 +100,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-		
+
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -105,7 +111,6 @@ tryAgain:
 #endif 
 		cout << "Done !";
 		Sleep(250);
-		break;
 	}
 	case 0: {
 #ifdef _CLS_
@@ -113,7 +118,6 @@ tryAgain:
 #endif 
 		cout << "Done !";
 		Sleep(250);
-		break;
 	}
 
 	case -45: return 0;
