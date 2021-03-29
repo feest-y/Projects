@@ -6,7 +6,7 @@
 template <typename T>
 void PrintArray(const T* const arr, const int size) {
 	for (int i = 0; i < size; i++) {
-		std::cout << arr[i] << "\n";
+		std::cout << arr[i] << "\t";
 	}
 	printf("\n");
 }
@@ -25,6 +25,16 @@ void IntToChar(char* Destination, int* Source, const int size = 10) {
 void CharToInt(char* Source, int* Destination, const int size = 10) {
 	for (int i = 0; i < size; i++)
 		*(Destination + i) = (*(Source + i) - 48);
+}
+
+int SumOfEven(int* arr, const int size = 10) {
+	int Sum = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (!(*(arr + i) % 2))
+			Sum += *(arr + i);
+	}
+	return Sum;
 }
 int main()
 {
@@ -53,11 +63,15 @@ int main()
 
 	delete[] Buffer;
 	Buffer = new char[size];
-	
+
 	fread(Buffer, 1, size, file);
-	
+
 	CharToInt(Buffer, Brr);
 
 	PrintArray(Brr, size);
+	
+	printf("\n");
+	std::cout << SumOfEven(Brr);
+
 	return 0;
 }
