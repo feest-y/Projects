@@ -106,7 +106,8 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-
+		N = InputSize("position > ");
+		DeleteInList(N);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;

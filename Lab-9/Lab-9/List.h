@@ -21,6 +21,16 @@ struct List
 	Company data;
 	List* next = nullptr;
 	List* prev = nullptr;
+
+	List() {
+		next = nullptr;
+		prev = nullptr;
+	}
+
+	~List() {
+		delete next;
+		delete prev;
+	}
 };
 
 List* head = nullptr; // адрес головы списка
@@ -176,13 +186,14 @@ bool DeleteInList(int position) {
 		return false;
 
 	List* clean;
-
 	if (position <= 1) {
 		clean = head;
 		head = head->next;
+		head->prev->next = nullptr;
+		head->prev = nullptr;
+
 		delete clean;
 	}
-
 	else {
 		List* current = head;
 
