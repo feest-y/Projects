@@ -107,7 +107,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-		head = CreateFromFile(head, filename, ListElements);
+		head = CreateFromFile(filename, ListElements);
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -116,7 +116,6 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-
 		cout << "Done !";
 		Sleep(250);
 		break;

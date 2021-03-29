@@ -54,9 +54,9 @@ List* Create(List* head, short n = 1) //функция создания списка (возвращает адре
 	return head;
 }
 
-List* CreateFromFile(List* head, char* filename, int elements = ListElements) {
-	if (elements == 0)
-		return head;
+List* CreateFromFile(char* filename, int elements = ListElements) {
+
+	elements = InputSize("Amount of elements > ");
 
 	if (head != nullptr)
 		free(head);
@@ -65,7 +65,7 @@ List* CreateFromFile(List* head, char* filename, int elements = ListElements) {
 	head = p = pred = (List*)malloc(sizeof(List));
 	head->data.SetFromFile(filename);
 
-	for (short i = 2; i < elements; i++) {
+	for (short i = 2; i <= elements; i++) {
 		p = (List*)malloc(sizeof(List));
 		p->data.SetFromFile(filename, i);
 
@@ -77,8 +77,6 @@ List* CreateFromFile(List* head, char* filename, int elements = ListElements) {
 	ListElements = elements;
 	p->next = nullptr;
 	return head;
-
-
 }
 
 bool PrintCriterion(List* head, int criterion = 0)
