@@ -212,71 +212,11 @@ bool DeleteInList(int position) {
 	return true;
 }
 
-bool SortList()
-{
-	if (head == nullptr)
-		return false;
-
-	List* NewHead, * current = head, * Newcurrent = (List*)malloc(sizeof(List));
-	NewHead = Newcurrent;
-	bool isMIn;
-	List Min;
-	int counter = 1, position = ListElements, backup = ListElements;
-
-	for (int i = 0; i < backup; i++)
-	{
-		current = head;
-
-		Min.data.workers = _I32_MAX;
-		counter = 1;
-		isMIn = false;
-		while (current != nullptr) {
-
-			if (Min.data.workers >= current->data.workers) {
-				Min.data = current->data;
-				position = counter;
-				isMIn = true;
-			}
-
-			current = current->next;
-			counter++;
-		}
-
-		if (isMIn)
-		{
-			Newcurrent->data = Min.data;
-
-			Newcurrent->next = (List*)malloc(sizeof(List));
-
-			Newcurrent = Newcurrent->next;
-
-			Newcurrent->next = nullptr;
-
-			DeleteInList(position);
-		}
-	}
-	Newcurrent = nullptr;
-	current = head = NewHead;
-
-	while (current != nullptr)
-	{
-		if (current->next->next == nullptr)
-		{
-			delete current->next;
-			current->next = nullptr;
-		}
-		current = current->next;
-	}
-	ListElements = backup;
-	return true;
-}
-
-
-bool SortList2() {
+bool SortList() {
 	if (head == nullptr)
 		return false;
 	Company buff;
-	List* current = head, * current2;
+	List* current = head, * current2, * addressOfMin=head;
 	int min = INT32_MAX, counter = 0;
 	bool isMin = true;
 	while (isMin && !(counter >= ListElements))
@@ -284,24 +224,26 @@ bool SortList2() {
 		current = head;
 		isMin = false;
 		min = INT32_MAX;
-		while (current->next != nullptr)
+		for (int i = 0; i < counter /*&& current2->next != nullptr*/; i++)
+			current = current->next;
+
+		while (current != nullptr)
 		{
 			if (current->data.workers < min)
 			{
 				isMin = true;
 				min = current->data.workers;
 				buff = current->data;
-
-				
+				addressOfMin = current;
 			}
 
 			current = current->next;
 		}
 		current2 = head;
-		for (int i = 0; i < counter || current2->next != nullptr; i++)
+		for (int i = 0; i < counter /*&& current2->next != nullptr*/; i++)
 			current2 = current2->next;
 
-		current->data = current2->data;
+		addressOfMin->data = current2->data;
 		current2->data = buff;
 		counter++;
 	}
@@ -309,6 +251,7 @@ bool SortList2() {
 
 	return true;
 }
+
 bool PrintList(List* elem)
 {
 	if (elem == nullptr)
