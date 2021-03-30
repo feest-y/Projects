@@ -116,8 +116,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-		cout << "Not yet!\n";
-		SortList2();
+		SortList();
 		cout << "Done !\n";
 		Sleep(250);
 		goto tryAgain;
@@ -137,8 +136,7 @@ tryAgain:
 #ifdef _CLS_
 		system("cls");
 #endif 
-		cout << "Not yet!\n";
-
+		CreateFromFile(filename);
 		cout << "Done !";
 		Sleep(250);
 		goto tryAgain;

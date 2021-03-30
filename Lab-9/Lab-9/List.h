@@ -67,22 +67,21 @@ List* CreateFromFile(char* filename, int elements = ListElements) {
 
 	if (head != nullptr)
 		free(head);
-
-	List* p, * pred;
-	head = p = pred = (List*)malloc(sizeof(List));
+	head = (List*)malloc(sizeof(List));
+	List* current = head;
+	head->prev = nullptr;
 	head->data.SetFromFile(filename);
 
-	for (short i = 2; i <= elements; i++) {
-		p = (List*)malloc(sizeof(List));
-		p->data.SetFromFile(filename, i);
-
-		pred->next = p; //ссылка из предыдущей записи на текущую
-		pred = p;	// сохранение адреса текущей записи в поле предыдущей
-					// текущая запись становится предыдущей
+	for (int i = 2; i <= elements; i++)
+	{
+		current->next = (List*)malloc(sizeof(List));
+		current->next->prev = current;
+		current = current->next;
+		current->data.SetFromFile(filename, i);
 	}
-
+	tail = current;
 	ListElements = elements;
-	p->next = nullptr;
+	current->next = nullptr;
 	return head;
 }
 
@@ -216,7 +215,7 @@ bool SortList() {
 	if (head == nullptr)
 		return false;
 	Company buff;
-	List* current = head, * current2, * addressOfMin=head;
+	List* current = head, * current2, * addressOfMin = head;
 	int min = INT32_MAX, counter = 0;
 	bool isMin = true;
 	while (isMin && !(counter >= ListElements))
