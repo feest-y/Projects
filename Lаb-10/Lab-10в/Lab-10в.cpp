@@ -1,4 +1,4 @@
-﻿#include "..\..\Header\Header.h"
+﻿#include "..\..\Functions\Functions.h"
 
 class Sum {
 	//private:
@@ -42,6 +42,7 @@ int main()
 	Standart();
 	int a = 5, b = 6;
 	Sum A(a, b);
+	Sum* C = new Sum(a + 1, b + 1);
 
 	//A.Init();
 	A.CountS();
@@ -50,5 +51,8 @@ int main()
 
 	cout << "\npointerX > " << *A.x;
 	cout << "\npointerX > " << *A.y;
+
+	cout << "\npointersC > " << *C->y << "\t" << *C->x;
+	delete C;
 	r0;
 }
