@@ -25,13 +25,10 @@ struct List
 
 List* head = nullptr; // адрес головы списка
 short ListElements = 0;
-List* Create(List* head, short n = 1) //функция создания списка (возвращает адрес его головы)
+List* Create(List* head, short n = 1, bool isFromFile = false) //функция создания списка (возвращает адрес его головы)
 {
-	if (n <= 0)
-	{
-		cout << "Wrong amount of elements !\n";
+	if (n == 0)
 		return head;
-	}
 
 	if (head != nullptr)
 		free(head);
@@ -100,11 +97,7 @@ bool PrintCriterion(List* head, int criterion = 0)
 	}
 	_LINE_;
 	if (counter == 0)
-	{
 		system("cls");
-		cout << "There is no companies with " << criterion << " workers !\n";
-	}
-
 	return true;
 }
 
@@ -170,7 +163,7 @@ bool DeleteInList(int position) {
 	return true;
 }
 
-bool SortList(List* head)
+bool SortList()
 {
 	if (head == nullptr)
 		return false;
