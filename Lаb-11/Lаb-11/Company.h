@@ -1,60 +1,19 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <cstdio>
-#include <String>
-#include <cmath>
+#include "..\..\Functions\Functions.h"
 #define zxc printf("|")
+#define _LINE_ printf("-----------------------------------------------\n")
 
 using namespace std;
 
-
-
-float StrToFloat(char* b) {
-	int x = 0;
-	bool counter = 0;
-	short sign = 0;
-	for (int i = 0; b[i] != '\0'; i++)
-	{
-		if (b[i] >= 48 && b[i] <= 57 && counter == 0)
-		{
-			x *= 10;			x += (b[i] - 48);
-		}
-
-		if (b[i] == ',' || b[i] == '.')
-			counter++;
-
-		if (counter != 0 && b[i] >= 48 && b[i] <= 57)
-		{
-			x *= 10;
-			x += (b[i] - 48);
-			sign++;
-		}
-
-	}
-	return x / pow(10, sign);
-}
-
-int StrToInt(char* b) {
-	int x = 0, counter = 0;
-	for (int i = 0; b[i] != '\0'; i++)
-	{
-		if (b[i] >= 48 && b[i] <= 57 && counter == 0)
-		{
-			x *= 10;
-			x += (b[i] - 48);
-		}
-	}
-	return x;
-}
-
-struct Company
+class Company
 {
-	char input[255]{};
-	char name[255]{};
+private:
+	char input[50]{};
+	char name[50]{};
 	char type = name[0];
 	int workers = 0;
 	float area = 0;
+
 	void ConvertName() {
 		int i;
 		for (i = 0; name[i] != '\0'; i++) {}
@@ -62,19 +21,61 @@ struct Company
 		for (int j = 0; j < 13; j++)
 		{
 			name[12 - i + j] = name[j];
-			if (j < (12 - i)) {
+			if (j < (12 - i))
 				name[j] = ' ';
-			}
+
 		}
+	}
+
+public:
+	Company() {
+		for (short i = 0; i < 50; i++)
+			name[i] = input[i] = '\0';
+
+		type = name[0];
+		area = workers = 0;
+	}
+
+	char* GetInput() {
+		return input;
+	}
+	char* GetName() {
+		return name;
+	}
+	char GetType() {
+		return type;
+	}
+	int GetWorkers() {
+		return workers;
+	}
+	float GetArea() {
+		return area;
+	}
+
+	void PrintHead() {/*
+	char line[48]{};
+	for (int i = 0; i < sizeof(line); i++)
+		line[i] = '|';
+	printf("%s", line);*/
+		_LINE_;
+		printf("|      Сельскохозяйственные предприятия       |\n");
+		_LINE_;
+		printf("|  Название  |  Вид  |Количество|   Площадь   |\n");
+		printf("|            |       |работников|   земли (га)|\n");
+		printf("|------------|-------|----------|-------------|\n");
+
 	}
 	void SetCompany(bool x = 0) {
 		if (x)
 		{
-			for (int i = 0; i < rand() % 5; i++)
+			for (int i = 0; i < sizeof(name) - 1; i++)
+				name[i] = '\0';
+
+			for (int i = 0; i < rand() % 5 + 1; i++)
 				name[i] = rand() % (122 - 65) + 65;
 			type = rand() % (122 - 65) + 65;
 			ConvertName();
-			workers = rand() % 12700;
+			workers = rand() % 100 + 1;
 			area = (float)(rand() % 1270) + ((float)(rand() % 1270)) / pow(10, rand() % 3);;
 		}
 
@@ -90,8 +91,7 @@ struct Company
 			cin >> input; area = StrToFloat(input);
 		}
 	}
-
-	void Print() {
+	void Show() {
 		zxc;
 		cout.width(11);
 		cout << name;
@@ -108,16 +108,20 @@ struct Company
 		printf("\n");
 		cout.width(1);
 	}
-	void PrintFromFile(char* filename, int num = 0) {
+	void SetFromFile(char* filename, int string = 1) {
 		char line[60]{};
 		char buff[50]{};
+		for (short i = 0; i < 50; i++)
+			name[i] = '\0';
+
+		for (short i = 0; i < 50; i++)
+			input[i] = '\0';
+
 		short position = 0;
 		FILE* file = fopen(filename, "r");
 
-		for (int i = 0; i < num; i++)
-		{
+		for (int i = 0; i < string; i++)
 			fgets(line, 60, file);
-		}
 
 		for (int j = 0; j < 50; j++)
 		{
@@ -169,7 +173,7 @@ struct Company
 			}
 		}
 
-		Print();
+		fclose(file);
 	}
 	void CompanyToFile(char* filename, short& notes, short mode = 0) {
 		if (mode == 0)
@@ -240,5 +244,4 @@ struct Company
 			notes = 1;
 		}
 	}
-
 };

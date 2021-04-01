@@ -3,6 +3,13 @@
 #include <stdio.h>
 #include <iostream>
 
+template <typename T>
+void PrintArray(const T* const arr, const int size) {
+	for (int i = 0; i < size; i++) {
+		std::cout << arr[i] << "\t";
+	}
+	printf("\n");
+}
 
 void FillArray(int* const arr, const int size, const int min = 0, const int max = 9) {
 	for (int i = 0; i < size; i++) {
@@ -10,35 +17,61 @@ void FillArray(int* const arr, const int size, const int min = 0, const int max 
 	}
 }
 
+void IntToChar(char* Destination, int* Source, const int size = 10) {
+	for (int i = 0; i < size; i++)
+		*(Destination + i) = (*(Source + i) + 48);
+}
+
+void CharToInt(char* Source, int* Destination, const int size = 10) {
+	for (int i = 0; i < size; i++)
+		*(Destination + i) = (*(Source + i) - 48);
+}
+
+int SumOfEven(int* arr, const int size = 10) {
+	int Sum = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (!(*(arr + i) % 2))
+			Sum += *(arr + i);
+	}
+	return Sum;
+}
 int main()
 {
+	srand(time(0));
 	FILE* file;
-	int Arr[10], a[10];
+	const int size = 10;
+	int Arr[10], Brr[size];
+	char* Buffer = new char[size];
+	FillArray(Arr, size);
 
-	FillArray(a, 10);
+	IntToChar(Buffer, Arr, size);
 
 
-	if ((file = fopen("test", "w")) == NULL) {
+	if ((file = fopen("test.txt", "w")) == NULL) {
 		printf("Cannot open file.\n");
 		exit(1);
 	}
 
-	if (fwrite(&a, sizeof(int), 1, file) != 10) {
-		if (feof(file)) printf("End of file.");
-		else printf("Read error.");
-	}
+	fwrite(Buffer, 1, size, file);
 	fclose(file);
 
-	if ((file = fopen("test", "r")) == NULL) {
+	if ((file = fopen("test.txt", "r")) == NULL) {
 		printf("Cannot open file.\n");
 		exit(1);
 	}
 
-	if (fread(Arr, sizeof(int), 10, file) != 10) {
-		if (feof(file)) printf("End of file.");
-		else printf("Read error.");
-	}
+	delete[] Buffer;
+	Buffer = new char[size];
 
-	fclose(file);
+	fread(Buffer, 1, size, file);
+
+	CharToInt(Buffer, Brr);
+
+	PrintArray(Brr, size);
+	
+	printf("\n");
+	std::cout << SumOfEven(Brr);
+
 	return 0;
 }

@@ -141,6 +141,10 @@
   <ItemGroup>
     <ClCompile Include="Lab-7в.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="buff.txt" />
+    <Text Include="file.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
