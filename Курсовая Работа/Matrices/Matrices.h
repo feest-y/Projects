@@ -1,29 +1,117 @@
 #pragma once
-#include "Functions.h"
+//#include "Functions.h"
+
+#include <ctime>
+#include <cstdlib>
+#include <cstdio>
+
+//using namespace System;
+//using namespace System::Windows::Forms;
+
+void TurnArrayLeft(int** arr, const int ROWS = 9, const int COLLS = 9) {
+	int Buffer[9][9] = {};
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLLS; j++)
+		{
+			Buffer[i][j] = arr[j][ROWS - i - 1];
+		}
+	}
+
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLLS; j++)
+		{
+			arr[i][j] = Buffer[i][j];
+		}
+	}
+}
+
+void FillArray(int** const arr, const int ROWS, const int COLLS, const int min = 1, const int max = 99) {
+	srand(time(NULL));
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLLS; j++) {
+			arr[i][j] = rand() % (max - min) + min;
+		}
+	}
+}
+
+void PrintArray(int** const arr, const int ROWS, const int COLLS) {
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLLS; j++) {
+			if (arr[i][j] != 0)
+				printf("%2.d ", arr[i][j]);
+			else
+				printf("%2.c ", '0');
+		}
+		printf("\n");
+	}
+	printf("\b");
+}
+
 class Matrix
 {
-	int** Parent = nullptr;
-	int** Transformed = nullptr;
-	int rows, cols;
-
-	float avg;
-	int sumP;
-	int sumD;
 	void ParentToTransformed() {
-		for (short i = 0; i < rows; i++)
+		if (rowsP != rowsT || colsP != colsT)
 		{
-			for (short j = 0; j < cols; j++)
+			ChangeSize(rowsP, colsP, false);
+		}
+
+		for (short i = 0; i < rowsT; i++)
+		{
+			for (short j = 0; j < colsT; j++)
 				Transformed[i][j] = Parent[i][j];
 		}
 	}
+
 public:
-
-
-	//Alg
-	void EvenToInteger(int integer = -999) {
-		for (short i = 0; i < rows; i++)
+	float avg;
+	int sumP;
+	int sumD;
+	int rowsP, colsP;
+	int rowsT, colsT;
+	int** Parent = nullptr;
+	int** Transformed = nullptr;
+	void ChangeSize(int newrows, int newcols, bool isParent = true) {
+		if (isParent)
 		{
-			for (short j = 0; j < cols; j++)
+			if (Parent != nullptr)
+			{
+				for (int i = 0; i < this->rowsP; i++)
+					delete[] Parent[i];
+				delete[] Parent;
+			}
+
+			this->rowsP = newrows;
+			this->colsP = newcols;
+			Parent = new int* [newrows];
+
+			for (int i = 0; i < newrows; i++) {
+				Parent[i] = new int[newcols] {};
+			}
+		}
+		else {
+			if (Transformed != nullptr)
+			{
+				for (int i = 0; i < this->rowsT; i++)
+					delete[] Transformed[i];
+				delete[] Transformed;
+			}
+
+			this->rowsT = newrows;
+			this->colsT = newcols;
+			Transformed = new int* [newrows];
+
+			for (int i = 0; i < newrows; i++) {
+				Transformed[i] = new int[newcols] {};
+			}
+		}
+	}
+	//Algorithms
+	void EvenToInteger(int integer = -999) {
+		for (short i = 0; i < rowsT; i++)
+		{
+			for (short j = 0; j < colsT; j++)
 			{
 				if (Parent[i][j] % 2 == 0)
 					Transformed[i][j] = integer;
@@ -34,45 +122,70 @@ public:
 	}
 	void TurnLeft() {
 		ParentToTransformed();
-		TurnArrayLeft(Transformed);
+
+		int Buffer[9][9] = {};
+
+		for (int i = 0; i < rowsT; i++)
+		{
+			for (int j = 0; j < colsT; j++)
+			{
+				Buffer[i][j] = Transformed[j][rowsT - i - 1];
+			}
+		}
+
+		if (rowsT != colsT)
+		{
+			ChangeSize(colsT, rowsT, false);
+		}
+
+		for (int i = 0; i < rowsT; i++)
+		{
+			for (int j = 0; j < colsT; j++)
+			{
+				Transformed[i][j] = Buffer[i][j];
+			}
+		}
+
+
+
 	}
 	void Fill() {
-		FillArray(Transformed, rows, cols);
+		FillArray(Transformed, rowsT, colsT);
 	}
 
 	//Parameters
 	void CountAverage() {
 		int sum = 0;
-		for (short i = 0; i < rows; i++)
+		for (short i = 0; i < rowsT; i++)
 		{
-			for (short j = 0; j < cols; j++)
+			for (short j = 0; j < colsT; j++)
 				sum += Transformed[i][j];
 		}
 
-		avg = sum / (rows * cols);
+		avg = sum / (rowsT * colsT);
 	}
 	void CountSumP() {
 		sumP = 0;
-		for (short i = 0; i < rows; i++)
+		for (short i = 0; i < rowsT; i++)
 		{
-			for (short j = 0; j < cols; j++)
+			for (short j = 0; j < colsT; j++)
 			{
-				if (i == 0 || i == rows)
+				if (i == 0 || i == rowsT)
 					sumP += Transformed[i][j];
-				else if (j == 0 || j == cols)
+				else if (j == 0 || j == colsT)
 					sumP += Transformed[i][j];
 			}
 		}
 	}
 	void CountSumD() {
 		sumD = 0;
-		for (short i = 0; i < cols; i++)
+		for (short i = 0; i < colsT; i++)
 			sumD += Transformed[i][i];
 	}
 
 	Matrix(const int rows, const int cols) {
-		this->rows = rows;
-		this->cols = cols;
+		this->rowsP = this->rowsT = rows;
+		this->colsP = this->colsT = cols;
 		Parent = new int* [rows];
 		Transformed = new int* [rows];
 
@@ -86,29 +199,29 @@ public:
 		sumD = 0;
 	}
 	Matrix() {
-		rows = cols = 0;
+		rowsP = colsP = colsT = rowsT = 0;
 		Parent = nullptr;
 		Transformed = nullptr;
 	}
 	~Matrix() {
 		if (Parent != nullptr)
 		{
-			for (int i = 0; i < rows; i++)
+			for (int i = 0; i < rowsP; i++)
 				delete[] Parent[i];
 			delete[] Parent;
 		}
 
 		if (Transformed != nullptr)
 		{
-			for (int i = 0; i < rows; i++)
+			for (int i = 0; i < rowsT; i++)
 				delete[] Transformed[i];
 			delete[] Transformed;
 		}
 	}
 	void Print(bool isParent = true) {
 		if (isParent)
-			PrintArray(Parent, rows, cols);
+			PrintArray(Parent, rowsP, colsP);
 		else
-			PrintArray(Transformed, rows, cols);
+			PrintArray(Transformed, rowsT, colsT);
 	}
 };
