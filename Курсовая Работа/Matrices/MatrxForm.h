@@ -1,7 +1,7 @@
 #pragma once
 #include "Matrices.h"
 
-Matrix A(1, 1);
+Matrix A;
 
 namespace Matrices {
 
@@ -71,6 +71,10 @@ namespace Matrices {
 	private: System::Windows::Forms::Label^ SPer;
 
 	private: System::Windows::Forms::Label^ Aver;
+	private: System::Windows::Forms::CheckBox^ radioButtonrand;
+	private: System::Windows::Forms::NumericUpDown^ number;
+
+
 
 
 
@@ -103,6 +107,7 @@ namespace Matrices {
 			this->Creation = (gcnew System::Windows::Forms::Button());
 			this->numericUpDownRows = (gcnew System::Windows::Forms::NumericUpDown());
 			this->groupBoxSourceMatrix = (gcnew System::Windows::Forms::GroupBox());
+			this->radioButtonrand = (gcnew System::Windows::Forms::CheckBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->groupBoxTransformed = (gcnew System::Windows::Forms::GroupBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -121,6 +126,7 @@ namespace Matrices {
 			this->SDiag = (gcnew System::Windows::Forms::Label());
 			this->SPer = (gcnew System::Windows::Forms::Label());
 			this->Aver = (gcnew System::Windows::Forms::Label());
+			this->number = (gcnew System::Windows::Forms::NumericUpDown());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewSource))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDownCols))->BeginInit();
@@ -131,6 +137,7 @@ namespace Matrices {
 			this->groupBox_Transformations->SuspendLayout();
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->number))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -205,6 +212,7 @@ namespace Matrices {
 			// 
 			// groupBoxSourceMatrix
 			// 
+			this->groupBoxSourceMatrix->Controls->Add(this->radioButtonrand);
 			this->groupBoxSourceMatrix->Controls->Add(this->label1);
 			this->groupBoxSourceMatrix->Controls->Add(this->dataGridViewSource);
 			this->groupBoxSourceMatrix->Controls->Add(this->numericUpDownRows);
@@ -215,6 +223,21 @@ namespace Matrices {
 			this->groupBoxSourceMatrix->Size = System::Drawing::Size(389, 410);
 			this->groupBoxSourceMatrix->TabIndex = 7;
 			this->groupBoxSourceMatrix->TabStop = false;
+			// 
+			// radioButtonrand
+			// 
+			this->radioButtonrand->AutoSize = true;
+			this->radioButtonrand->CheckAlign = System::Drawing::ContentAlignment::MiddleRight;
+			this->radioButtonrand->Checked = true;
+			this->radioButtonrand->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->radioButtonrand->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->radioButtonrand->Location = System::Drawing::Point(171, 364);
+			this->radioButtonrand->Name = L"radioButtonrand";
+			this->radioButtonrand->Size = System::Drawing::Size(89, 24);
+			this->radioButtonrand->TabIndex = 12;
+			this->radioButtonrand->Text = L"Random";
+			this->radioButtonrand->UseVisualStyleBackColor = true;
 			// 
 			// label1
 			// 
@@ -260,6 +283,7 @@ namespace Matrices {
 			// 
 			// groupBox_Transformations
 			// 
+			this->groupBox_Transformations->Controls->Add(this->number);
 			this->groupBox_Transformations->Controls->Add(this->CalculateAlg);
 			this->groupBox_Transformations->Controls->Add(this->radioButton3);
 			this->groupBox_Transformations->Controls->Add(this->radioButton2);
@@ -292,10 +316,10 @@ namespace Matrices {
 				static_cast<System::Byte>(204)));
 			this->radioButton3->Location = System::Drawing::Point(18, 244);
 			this->radioButton3->Name = L"radioButton3";
-			this->radioButton3->Size = System::Drawing::Size(119, 29);
+			this->radioButton3->Size = System::Drawing::Size(62, 29);
 			this->radioButton3->TabIndex = 2;
 			this->radioButton3->TabStop = true;
-			this->radioButton3->Text = L"Generate";
+			this->radioButton3->Text = L"X 2";
 			this->radioButton3->UseVisualStyleBackColor = true;
 			// 
 			// radioButton2
@@ -305,10 +329,10 @@ namespace Matrices {
 				static_cast<System::Byte>(204)));
 			this->radioButton2->Location = System::Drawing::Point(18, 189);
 			this->radioButton2->Name = L"radioButton2";
-			this->radioButton2->Size = System::Drawing::Size(110, 29);
+			this->radioButton2->Size = System::Drawing::Size(65, 29);
 			this->radioButton2->TabIndex = 1;
 			this->radioButton2->TabStop = true;
-			this->radioButton2->Text = L"TurnLeft";
+			this->radioButton2->Text = L"Flip";
 			this->radioButton2->UseVisualStyleBackColor = true;
 			// 
 			// radioButton1
@@ -344,9 +368,9 @@ namespace Matrices {
 			this->checkBox3->AutoSize = true;
 			this->checkBox3->Location = System::Drawing::Point(18, 244);
 			this->checkBox3->Name = L"checkBox3";
-			this->checkBox3->Size = System::Drawing::Size(137, 29);
+			this->checkBox3->Size = System::Drawing::Size(176, 29);
 			this->checkBox3->TabIndex = 10;
-			this->checkBox3->Text = L"checkBox3";
+			this->checkBox3->Text = L"SumOnDiag >>";
 			this->checkBox3->UseVisualStyleBackColor = true;
 			// 
 			// checkBox2
@@ -354,9 +378,9 @@ namespace Matrices {
 			this->checkBox2->AutoSize = true;
 			this->checkBox2->Location = System::Drawing::Point(18, 189);
 			this->checkBox2->Name = L"checkBox2";
-			this->checkBox2->Size = System::Drawing::Size(137, 29);
+			this->checkBox2->Size = System::Drawing::Size(177, 29);
 			this->checkBox2->TabIndex = 9;
-			this->checkBox2->Text = L"checkBox2";
+			this->checkBox2->Text = L"Perimeter     >>";
 			this->checkBox2->UseVisualStyleBackColor = true;
 			// 
 			// checkBox1
@@ -364,9 +388,9 @@ namespace Matrices {
 			this->checkBox1->AutoSize = true;
 			this->checkBox1->Location = System::Drawing::Point(18, 134);
 			this->checkBox1->Name = L"checkBox1";
-			this->checkBox1->Size = System::Drawing::Size(137, 29);
+			this->checkBox1->Size = System::Drawing::Size(177, 29);
 			this->checkBox1->TabIndex = 8;
-			this->checkBox1->Text = L"checkBox1";
+			this->checkBox1->Text = L"Average       >>";
 			this->checkBox1->UseVisualStyleBackColor = true;
 			// 
 			// CalculatePar
@@ -379,6 +403,7 @@ namespace Matrices {
 			this->CalculatePar->TabIndex = 7;
 			this->CalculatePar->Text = L"Calculate";
 			this->CalculatePar->UseVisualStyleBackColor = true;
+			this->CalculatePar->Click += gcnew System::EventHandler(this, &MatrxForm::CalculatePar_Click);
 			// 
 			// groupBox2
 			// 
@@ -401,9 +426,8 @@ namespace Matrices {
 				static_cast<System::Byte>(204)));
 			this->SDiag->Location = System::Drawing::Point(6, 243);
 			this->SDiag->Name = L"SDiag";
-			this->SDiag->Size = System::Drawing::Size(45, 28);
+			this->SDiag->Size = System::Drawing::Size(0, 28);
 			this->SDiag->TabIndex = 15;
-			this->SDiag->Text = L"text";
 			this->SDiag->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// SPer
@@ -413,9 +437,8 @@ namespace Matrices {
 				static_cast<System::Byte>(204)));
 			this->SPer->Location = System::Drawing::Point(6, 188);
 			this->SPer->Name = L"SPer";
-			this->SPer->Size = System::Drawing::Size(45, 28);
+			this->SPer->Size = System::Drawing::Size(0, 28);
 			this->SPer->TabIndex = 14;
-			this->SPer->Text = L"text";
 			this->SPer->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// Aver
@@ -425,10 +448,22 @@ namespace Matrices {
 				static_cast<System::Byte>(204)));
 			this->Aver->Location = System::Drawing::Point(6, 133);
 			this->Aver->Name = L"Aver";
-			this->Aver->Size = System::Drawing::Size(45, 28);
+			this->Aver->Size = System::Drawing::Size(0, 28);
 			this->Aver->TabIndex = 13;
-			this->Aver->Text = L"text";
 			this->Aver->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			// 
+			// number
+			// 
+			this->number->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->number->Location = System::Drawing::Point(124, 169);
+			this->number->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2000000, 0, 0, 0 });
+			this->number->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2000000, 0, 0, System::Int32::MinValue });
+			this->number->Name = L"number";
+			this->number->Size = System::Drawing::Size(56, 24);
+			this->number->TabIndex = 13;
+			this->number->ThousandsSeparator = true;
+			this->number->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 666, 0, 0, System::Int32::MinValue });
 			// 
 			// MatrxForm
 			// 
@@ -463,6 +498,7 @@ namespace Matrices {
 			this->groupBox1->PerformLayout();
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->number))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -478,23 +514,33 @@ namespace Matrices {
 
 	private: System::Void Creation_Click(System::Object^ sender, System::EventArgs^ e) {
 		A.ChangeSize(Convert::ToInt32(numericUpDownRows->Value), Convert::ToInt32(numericUpDownCols->Value));
+		if (radioButtonrand->Checked)
+			A.Fill(true);
+
 		//заполнение таблицы
 		ToGrid(true);
 	}
 
 	private: System::Void CalculateAlg_Click(System::Object^ sender, System::EventArgs^ e) {
-
+		Sync();
 		if (radioButton1->Checked)
 		{
-			A.EvenToInteger();
+			A.EvenToInteger(Convert::ToInt32(number->Value));
 		}
 		else if (radioButton2->Checked)
 		{
-
+			if (numericUpDownRows->Value == numericUpDownCols->Value)
+			{
+				A.Flip();
+			}
+			else {
+				MessageBox::Show("Матрица не квадратная !", "Error !");
+				return;
+			}
 		}
 		else if (radioButton3->Checked)
 		{
-
+			A.x2();
 		}
 		else return;
 
@@ -512,16 +558,20 @@ namespace Matrices {
 				for (short j = 0; j < A.colsP; j++)
 				{
 					dataGridViewSource->TopLeftHeaderCell->Value = "Source";
-					dataGridViewSource->Columns[j]->HeaderCell->Value = Convert::ToString(j + 1);
-					dataGridViewSource->Rows[i]->HeaderCell->Value = Convert::ToString(i + 1);
-					dataGridViewSource->Rows[i]->Cells[j]->Value = 1;
-
+					dataGridViewSource->Columns[j]->HeaderCell->Value = Convert::ToString(j);
+					dataGridViewSource->Rows[i]->HeaderCell->Value = Convert::ToString(i);
+					dataGridViewSource->Rows[i]->Cells[j]->Value = A.Parent[i][j];
 				}
 			}
 			dataGridViewSource->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
 			dataGridViewSource->AutoResizeColumns();
 		}
 		else {
+			if (A.rowsP == 0 || A.colsP == 0 || A.Parent == nullptr)
+			{
+				MessageBox::Show("Матрица пустая !", "Error !");
+				return;
+			}
 			dataGridViewTransformed->RowCount = A.rowsT;
 			dataGridViewTransformed->ColumnCount = A.colsT;
 
@@ -530,9 +580,9 @@ namespace Matrices {
 				for (short j = 0; j < A.colsT; j++)
 				{
 					dataGridViewTransformed->TopLeftHeaderCell->Value = "Transformed";
-					dataGridViewTransformed->Columns[j]->HeaderCell->Value = Convert::ToString(j + 1);
-					dataGridViewTransformed->Rows[i]->HeaderCell->Value = Convert::ToString(i + 1);
-					dataGridViewTransformed->Rows[i]->Cells[j]->Value = 1;
+					dataGridViewTransformed->Columns[j]->HeaderCell->Value = Convert::ToString(j);
+					dataGridViewTransformed->Rows[i]->HeaderCell->Value = Convert::ToString(i);
+					dataGridViewTransformed->Rows[i]->Cells[j]->Value = A.Transformed[i][j];
 
 				}
 			}
@@ -540,5 +590,54 @@ namespace Matrices {
 			dataGridViewTransformed->AutoResizeColumns();
 		}
 	}
+
+	private: System::Void Sync() {
+
+		//Source
+		for (int i = 0; i < A.rowsP; i++)
+		{
+			for (int j = 0; j < A.colsP; j++)
+			{
+				A.Parent[i][j] = Convert::ToInt32(dataGridViewSource->Rows[i]->Cells[j]->Value);
+			}
+		}
+		//Transformed
+
+		for (int i = 0; i < A.rowsT; i++)
+		{
+			for (int j = 0; j < A.colsT; j++)
+			{
+				A.Transformed[i][j] = Convert::ToInt32(dataGridViewTransformed->Rows[i]->Cells[j]->Value);
+			}
+		}
+	}
+
+	private: System::Void CalculatePar_Click(System::Object^ sender, System::EventArgs^ e) {//Calculate 2
+		if (A.rowsT == 0 || A.colsT == 0 || A.Transformed == nullptr)
+		{
+			MessageBox::Show("Матрица пустая !", "Error !");
+			return;
+		}
+
+		Sync();
+		Aver->Text = Convert::ToString("");
+		SPer->Text = Convert::ToString("");
+		SDiag->Text = Convert::ToString("");
+		A.avg = A.sumP = A.sumD = 0;
+
+		if (checkBox1->Checked) {
+			A.CountAverage();
+			Aver->Text = Convert::ToString(A.avg);
+		}
+		if (checkBox2->Checked) {
+			A.CountSumP();
+			SPer->Text = Convert::ToString(A.sumP);
+		}
+		if (checkBox3->Checked) {
+			A.CountSumD();
+			SDiag->Text = Convert::ToString(A.sumD);
+		}
+	}
 	};
+
 }

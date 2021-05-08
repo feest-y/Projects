@@ -52,16 +52,20 @@ void PrintArray(int** const arr, const int ROWS, const int COLLS) {
 class Matrix
 {
 	void ParentToTransformed() {
-		if (rowsP != rowsT || colsP != colsT)
-		{
+		if (!IsEqual() || rowsT == 0 || colsT == 0)
 			ChangeSize(rowsP, colsP, false);
-		}
+
 
 		for (short i = 0; i < rowsT; i++)
 		{
 			for (short j = 0; j < colsT; j++)
 				Transformed[i][j] = Parent[i][j];
 		}
+	}
+	bool IsEqual() {
+		if (rowsP != rowsT || colsP != colsT)
+			return false;
+		else return true;
 	}
 
 public:
@@ -109,6 +113,9 @@ public:
 	}
 	//Algorithms
 	void EvenToInteger(int integer = -999) {
+		if (!IsEqual())
+			ChangeSize(colsP, rowsP, false);
+
 		for (short i = 0; i < rowsT; i++)
 		{
 			for (short j = 0; j < colsT; j++)
@@ -120,7 +127,7 @@ public:
 			}
 		}
 	}
-	void TurnLeft() {
+	void Flip() {
 		ParentToTransformed();
 
 		int Buffer[9][9] = {};
@@ -129,14 +136,14 @@ public:
 		{
 			for (int j = 0; j < colsT; j++)
 			{
-				Buffer[i][j] = Transformed[j][rowsT - i - 1];
+				//Buffer[i][j] = Transformed[j][rowsT - i - 1];
+				Buffer[i][j] = Transformed[j][i];
 			}
 		}
 
 		if (rowsT != colsT)
-		{
 			ChangeSize(colsT, rowsT, false);
-		}
+
 
 		for (int i = 0; i < rowsT; i++)
 		{
@@ -149,8 +156,31 @@ public:
 
 
 	}
-	void Fill() {
-		FillArray(Transformed, rowsT, colsT);
+	void x2() {
+		if (Transformed == nullptr)
+			ParentToTransformed();
+
+		for (int i = 0; i < rowsT; i++)
+		{
+			for (int j = 0; j < colsT; j++)
+			{
+				Transformed[i][j] *= 2;
+			}
+		}
+
+	}
+	void Fill(bool isParent = false) {
+		if (isParent)
+		{
+			FillArray(Parent, rowsP, colsP);
+		}
+		else {
+
+			if (!IsEqual())
+				ChangeSize(rowsP, colsP, false);
+
+			FillArray(Transformed, rowsT, colsT);
+		}
 	}
 
 	//Parameters
