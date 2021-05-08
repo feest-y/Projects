@@ -1,12 +1,11 @@
 #pragma once
 //#include "Functions.h"
+//using namespace System;
+//using namespace System::Windows::Forms;
 
 #include <ctime>
 #include <cstdlib>
 #include <cstdio>
-
-//using namespace System;
-//using namespace System::Windows::Forms;
 
 void TurnArrayLeft(int** arr, const int ROWS = 9, const int COLLS = 9) {
 	int Buffer[9][9] = {};
@@ -36,19 +35,6 @@ void FillArray(int** const arr, const int ROWS, const int COLLS, const int min =
 	}
 }
 
-void PrintArray(int** const arr, const int ROWS, const int COLLS) {
-	for (int i = 0; i < ROWS; i++) {
-		for (int j = 0; j < COLLS; j++) {
-			if (arr[i][j] != 0)
-				printf("%2.d ", arr[i][j]);
-			else
-				printf("%2.c ", '0');
-		}
-		printf("\n");
-	}
-	printf("\b");
-}
-
 class Matrix
 {
 	void ParentToTransformed() {
@@ -76,41 +62,7 @@ public:
 	int rowsT, colsT;
 	int** Parent = nullptr;
 	int** Transformed = nullptr;
-	void ChangeSize(int newrows, int newcols, bool isParent = true) {
-		if (isParent)
-		{
-			if (Parent != nullptr)
-			{
-				for (int i = 0; i < this->rowsP; i++)
-					delete[] Parent[i];
-				delete[] Parent;
-			}
-
-			this->rowsP = newrows;
-			this->colsP = newcols;
-			Parent = new int* [newrows];
-
-			for (int i = 0; i < newrows; i++) {
-				Parent[i] = new int[newcols] {};
-			}
-		}
-		else {
-			if (Transformed != nullptr)
-			{
-				for (int i = 0; i < this->rowsT; i++)
-					delete[] Transformed[i];
-				delete[] Transformed;
-			}
-
-			this->rowsT = newrows;
-			this->colsT = newcols;
-			Transformed = new int* [newrows];
-
-			for (int i = 0; i < newrows; i++) {
-				Transformed[i] = new int[newcols] {};
-			}
-		}
-	}
+	
 	//Algorithms
 	void EvenToInteger(int integer = -999) {
 		if (!IsEqual())
@@ -213,6 +165,43 @@ public:
 			sumD += Transformed[i][i];
 	}
 
+
+	void ChangeSize(int newrows, int newcols, bool isParent = true) {
+		if (isParent)
+		{
+			if (Parent != nullptr)
+			{
+				for (int i = 0; i < this->rowsP; i++)
+					delete[] Parent[i];
+				delete[] Parent;
+			}
+
+			this->rowsP = newrows;
+			this->colsP = newcols;
+			Parent = new int* [newrows];
+
+			for (int i = 0; i < newrows; i++) {
+				Parent[i] = new int[newcols] {};
+			}
+		}
+		else {
+			if (Transformed != nullptr)
+			{
+				for (int i = 0; i < this->rowsT; i++)
+					delete[] Transformed[i];
+				delete[] Transformed;
+			}
+
+			this->rowsT = newrows;
+			this->colsT = newcols;
+			Transformed = new int* [newrows];
+
+			for (int i = 0; i < newrows; i++) {
+				Transformed[i] = new int[newcols] {};
+			}
+		}
+	}
+	
 	Matrix(const int rows, const int cols) {
 		this->rowsP = this->rowsT = rows;
 		this->colsP = this->colsT = cols;
@@ -247,11 +236,5 @@ public:
 				delete[] Transformed[i];
 			delete[] Transformed;
 		}
-	}
-	void Print(bool isParent = true) {
-		if (isParent)
-			PrintArray(Parent, rowsP, colsP);
-		else
-			PrintArray(Transformed, rowsT, colsT);
 	}
 };

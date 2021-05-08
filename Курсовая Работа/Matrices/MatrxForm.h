@@ -1,10 +1,7 @@
 #pragma once
 #include "Matrices.h"
-
 Matrix A;
-
 namespace Matrices {
-
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -40,11 +37,7 @@ namespace Matrices {
 		}
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ exitToolStripMenuItemAbout;
-	protected:
-
 	private: System::Windows::Forms::ToolStripMenuItem^ exitToolStripMenuItemExit;
-
-
 	private: System::Windows::Forms::DataGridView^ dataGridViewSource;
 	private: System::Windows::Forms::NumericUpDown^ numericUpDownCols;
 	private: System::Windows::Forms::Button^ Creation;
@@ -52,7 +45,6 @@ namespace Matrices {
 	private: System::Windows::Forms::GroupBox^ groupBoxSourceMatrix;
 	private: System::Windows::Forms::GroupBox^ groupBoxTransformed;
 	private: System::Windows::Forms::DataGridView^ dataGridViewTransformed;
-
 	private: System::Windows::Forms::GroupBox^ groupBox_Transformations;
 	private: System::Windows::Forms::RadioButton^ radioButton1;
 	private: System::Windows::Forms::Button^ CalculateAlg;
@@ -67,24 +59,11 @@ namespace Matrices {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::GroupBox^ groupBox2;
 	private: System::Windows::Forms::Label^ SDiag;
-
 	private: System::Windows::Forms::Label^ SPer;
-
 	private: System::Windows::Forms::Label^ Aver;
 	private: System::Windows::Forms::CheckBox^ radioButtonrand;
 	private: System::Windows::Forms::NumericUpDown^ number;
-
-
-
-
-
-
-
-
-
-	protected:
 	private: System::ComponentModel::IContainer^ components;
-
 	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
@@ -503,11 +482,13 @@ namespace Matrices {
 			this->PerformLayout();
 
 		}
+
 #pragma endregion
 
 	private: System::Void exitToolStripMenuItemAbout_Click(System::Object^ sender, System::EventArgs^ e) {
 		MessageBox::Show("Выполнил студент группы КН-320В\n\tСолтус Андрей", "");
 	}
+
 	private: System::Void exitToolStripMenuItemExit_Click(System::Object^ sender, System::EventArgs^ e) {
 		Application::Exit();
 	}
@@ -547,6 +528,7 @@ namespace Matrices {
 		ToGrid(false);
 
 	}
+
 	private: System::Void ToGrid(bool isSource) {
 		if (isSource)
 		{
