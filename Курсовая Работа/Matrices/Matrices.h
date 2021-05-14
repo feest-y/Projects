@@ -62,7 +62,7 @@ public:
 	int rowsT, colsT;
 	int** Parent = nullptr;
 	int** Transformed = nullptr;
-	
+
 	//Algorithms
 	void EvenToInteger(int integer = -999) {
 		if (!IsEqual())
@@ -165,7 +165,96 @@ public:
 			sumD += Transformed[i][i];
 	}
 
+	void ToFile(bool isParent = true, bool isParam = false) {
+		if (isParent) {
+			char filename[20]{ 'P','a','r','e','n','t','.','t','x','t','\0' };
+			FILE* file = fopen(filename, "w");
+			for (int i = 0; i < rowsP; i++)
+			{
+				if (i > 0)
+					fprintf(file, "\n");
+				for (int j = 0; j < colsP; j++)
+				{
+					if (j > 0)
+						fprintf(file, " ");
+					fprintf(file, "%d", Parent[i][j]);
+				}
+			}
+			fprintf(file, "\n");
+			fclose(file);
+		}
+		else {
+			char filename[20]{ 'T','r','a','n','s','f','o','r','m','e','d','.','t','x','t','\0' };
+			FILE* file = fopen(filename, "w");
+			for (int i = 0; i < rowsT; i++)
+			{
+				if (i > 0)
+					fprintf(file, "\n");
+				for (int j = 0; j < colsT; j++)
+				{
+					if (j > 0)
+						fprintf(file, " ");
+					fprintf(file, "%d", Transformed[i][j]);
+				}
+			}
+			fprintf(file, "\n");
+			fclose(file);
 
+		}
+
+		if (isParam)
+		{
+			char filename[20]{ 'P','a','r','a','m','e','t','e','r','s','.','t','x','t','\0' };
+			FILE* file = fopen(filename, "w");
+			fprintf(file, "Average   > %f\n", avg);
+			fprintf(file, "Perimeter > %d\n", sumP);
+			fprintf(file, "SumOnDiag > %d", sumD);
+			fclose(file);
+		}
+	}
+	bool FromFile(bool isParent = true) {
+		char filename[20]{ 'P','a','r','e','n','t','.','t','x','t','\0' };
+		FILE* file = fopen(filename, "r");
+
+		char buff = '0';
+		int i = 0, j = 0, num = 0, maxj = 0, maxi = 0, r = 1;
+		int Arr[15][15]{};
+		while (fscanf(file, "%c", &buff) == 1)
+		{
+			if (buff >= 48 && buff <= 57)
+			{
+				while (buff != ' ' && (buff >= 48 && buff <= 57) && r == 1)
+				{
+					num *= 10;
+					num += buff - 48;
+					r = fscanf(file, "%c", &buff);
+				}
+				Arr[i][j] = num;
+				num = 0;
+				j++;
+			}
+			if (buff == '\n')
+			{
+				if (j > maxj)
+					maxj = j;
+
+				j = 0;
+				i++;
+			}
+		}
+		fclose(file);
+		maxi = i;
+		ChangeSize(maxi, maxj);
+		for (i = 0; i < maxi; i++)
+		{
+			for (j = 0; j < maxj; j++)
+			{
+				Parent[i][j] = Arr[i][j];
+			}
+		}
+
+		return true;
+	}
 	void ChangeSize(int newrows, int newcols, bool isParent = true) {
 		if (isParent)
 		{
@@ -201,7 +290,7 @@ public:
 			}
 		}
 	}
-	
+
 	Matrix(const int rows, const int cols) {
 		this->rowsP = this->rowsT = rows;
 		this->colsP = this->colsT = cols;

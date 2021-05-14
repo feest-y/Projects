@@ -63,6 +63,13 @@ namespace Matrices {
 	private: System::Windows::Forms::Label^ Aver;
 	private: System::Windows::Forms::CheckBox^ radioButtonrand;
 	private: System::Windows::Forms::NumericUpDown^ number;
+	private: System::Windows::Forms::Button^ SourceFromFile;
+	private: System::Windows::Forms::Button^ SourceToFile;
+	private: System::Windows::Forms::Button^ TransToFile;
+	private: System::Windows::Forms::Button^ ResToFile;
+	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Button^ button3;
 	private: System::ComponentModel::IContainer^ components;
 	private:
 		/// <summary>
@@ -92,6 +99,7 @@ namespace Matrices {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->dataGridViewTransformed = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox_Transformations = (gcnew System::Windows::Forms::GroupBox());
+			this->number = (gcnew System::Windows::Forms::NumericUpDown());
 			this->CalculateAlg = (gcnew System::Windows::Forms::Button());
 			this->radioButton3 = (gcnew System::Windows::Forms::RadioButton());
 			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
@@ -105,7 +113,13 @@ namespace Matrices {
 			this->SDiag = (gcnew System::Windows::Forms::Label());
 			this->SPer = (gcnew System::Windows::Forms::Label());
 			this->Aver = (gcnew System::Windows::Forms::Label());
-			this->number = (gcnew System::Windows::Forms::NumericUpDown());
+			this->SourceFromFile = (gcnew System::Windows::Forms::Button());
+			this->SourceToFile = (gcnew System::Windows::Forms::Button());
+			this->TransToFile = (gcnew System::Windows::Forms::Button());
+			this->ResToFile = (gcnew System::Windows::Forms::Button());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewSource))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDownCols))->BeginInit();
@@ -114,9 +128,9 @@ namespace Matrices {
 			this->groupBoxTransformed->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewTransformed))->BeginInit();
 			this->groupBox_Transformations->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->number))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->number))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -276,6 +290,19 @@ namespace Matrices {
 			this->groupBox_Transformations->TabStop = false;
 			this->groupBox_Transformations->Text = L"     Algorithms";
 			// 
+			// number
+			// 
+			this->number->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->number->Location = System::Drawing::Point(124, 169);
+			this->number->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2000000, 0, 0, 0 });
+			this->number->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2000000, 0, 0, System::Int32::MinValue });
+			this->number->Name = L"number";
+			this->number->Size = System::Drawing::Size(56, 24);
+			this->number->TabIndex = 13;
+			this->number->ThousandsSeparator = true;
+			this->number->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 666, 0, 0, System::Int32::MinValue });
+			// 
 			// CalculateAlg
 			// 
 			this->CalculateAlg->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -431,18 +458,89 @@ namespace Matrices {
 			this->Aver->TabIndex = 13;
 			this->Aver->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
-			// number
+			// SourceFromFile
 			// 
-			this->number->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->SourceFromFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->number->Location = System::Drawing::Point(124, 169);
-			this->number->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2000000, 0, 0, 0 });
-			this->number->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2000000, 0, 0, System::Int32::MinValue });
-			this->number->Name = L"number";
-			this->number->Size = System::Drawing::Size(56, 24);
-			this->number->TabIndex = 13;
-			this->number->ThousandsSeparator = true;
-			this->number->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 666, 0, 0, System::Int32::MinValue });
+			this->SourceFromFile->Location = System::Drawing::Point(44, 27);
+			this->SourceFromFile->Name = L"SourceFromFile";
+			this->SourceFromFile->Size = System::Drawing::Size(132, 36);
+			this->SourceFromFile->TabIndex = 13;
+			this->SourceFromFile->Text = L"From File";
+			this->SourceFromFile->UseVisualStyleBackColor = true;
+			this->SourceFromFile->Click += gcnew System::EventHandler(this, &MatrxForm::SourceFromFile_Click);
+			// 
+			// SourceToFile
+			// 
+			this->SourceToFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->SourceToFile->Location = System::Drawing::Point(279, 27);
+			this->SourceToFile->Name = L"SourceToFile";
+			this->SourceToFile->Size = System::Drawing::Size(132, 36);
+			this->SourceToFile->TabIndex = 14;
+			this->SourceToFile->Text = L"To File";
+			this->SourceToFile->UseVisualStyleBackColor = true;
+			this->SourceToFile->Click += gcnew System::EventHandler(this, &MatrxForm::SourceToFile_Click);
+			// 
+			// TransToFile
+			// 
+			this->TransToFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->TransToFile->Location = System::Drawing::Point(754, 27);
+			this->TransToFile->Name = L"TransToFile";
+			this->TransToFile->Size = System::Drawing::Size(132, 36);
+			this->TransToFile->TabIndex = 15;
+			this->TransToFile->Text = L"To File";
+			this->TransToFile->UseVisualStyleBackColor = true;
+			this->TransToFile->Click += gcnew System::EventHandler(this, &MatrxForm::TransToFile_Click);
+			// 
+			// ResToFile
+			// 
+			this->ResToFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->ResToFile->Location = System::Drawing::Point(1238, 21);
+			this->ResToFile->Name = L"ResToFile";
+			this->ResToFile->Size = System::Drawing::Size(92, 36);
+			this->ResToFile->TabIndex = 16;
+			this->ResToFile->Text = L"To File";
+			this->ResToFile->UseVisualStyleBackColor = true;
+			this->ResToFile->Click += gcnew System::EventHandler(this, &MatrxForm::ResToFile_Click);
+			// 
+			// button1
+			// 
+			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button1->Location = System::Drawing::Point(198, 30);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(58, 30);
+			this->button1->TabIndex = 13;
+			this->button1->Text = L"Open";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MatrxForm::button1_Click);
+			// 
+			// button2
+			// 
+			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button2->Location = System::Drawing::Point(906, 33);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(58, 30);
+			this->button2->TabIndex = 17;
+			this->button2->Text = L"Open";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MatrxForm::button2_Click);
+			// 
+			// button3
+			// 
+			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button3->Location = System::Drawing::Point(1336, 26);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(58, 30);
+			this->button3->TabIndex = 18;
+			this->button3->Text = L"Open";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &MatrxForm::button3_Click);
 			// 
 			// MatrxForm
 			// 
@@ -450,6 +548,13 @@ namespace Matrices {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->ClientSize = System::Drawing::Size(1428, 646);
+			this->Controls->Add(this->button3);
+			this->Controls->Add(this->button2);
+			this->Controls->Add(this->button1);
+			this->Controls->Add(this->ResToFile);
+			this->Controls->Add(this->TransToFile);
+			this->Controls->Add(this->SourceToFile);
+			this->Controls->Add(this->SourceFromFile);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->groupBox_Transformations);
@@ -473,11 +578,11 @@ namespace Matrices {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewTransformed))->EndInit();
 			this->groupBox_Transformations->ResumeLayout(false);
 			this->groupBox_Transformations->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->number))->EndInit();
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->number))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -619,6 +724,46 @@ namespace Matrices {
 			A.CountSumD();
 			SDiag->Text = Convert::ToString(A.sumD);
 		}
+	}
+	private: System::Void SourceToFile_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (A.rowsP == 0 || A.colsP == 0 || A.Parent == nullptr)
+		{
+			MessageBox::Show("Матрица пустая !", "Error !");
+			return;
+		}
+		Sync();
+		A.ToFile();
+	}
+
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		system("Parent.txt&exit");
+	}
+	private: System::Void TransToFile_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (A.rowsT == 0 || A.colsT == 0 || A.Transformed == nullptr)
+		{
+			MessageBox::Show("Матрица пустая !", "Error !");
+			return;
+		}
+		Sync();
+		A.ToFile(false);
+	}
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+		system("@echo off&Transformed.txt&exit");
+	}
+	private: System::Void ResToFile_Click(System::Object^ sender, System::EventArgs^ e) {
+		A.ToFile(false, true);
+	}
+	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+		system("@echo off&Parameters.txt&exit");
+	}
+		   //
+	private: System::Void SourceFromFile_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (!A.FromFile()) {
+			MessageBox::Show("Ошибка файла !", "Error !");
+			return;
+		}
+
+		ToGrid(true);
 	}
 	};
 
