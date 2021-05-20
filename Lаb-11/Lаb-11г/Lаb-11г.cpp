@@ -88,6 +88,7 @@ public:
 	void Print() {
 		cout << "\nFIO > " << FIO[0] << " " << FIO[1] << " " << FIO[2];
 		cout << "\nClubID > " << clubID;
+		cout << "\nCount > " << c;
 		cout << "\nDogs: \n";
 		for (int i = 0; i < DogAmmount; i++)
 		{
@@ -102,6 +103,7 @@ public:
 		FIO[2] = lastName;
 		dog = new Dog[DogAmmount]();
 		SetAmountOfDogs(DogAmmount);
+		c++;
 	}
 	Master() {
 		FIO[0] = "Albert";
@@ -109,13 +111,14 @@ public:
 		FIO[2] = "Markovich";
 		dog = new Dog[1];
 		DogAmmount = 1;
+		c++;
 	}
 	~Master() {
-
+		c--;
 		delete[] dog;
 	}
 };
-
+int Master::c = 0;
 int main()
 {
 	Master A("Ivan", "Ivanov", "Ivanovich", 2);
