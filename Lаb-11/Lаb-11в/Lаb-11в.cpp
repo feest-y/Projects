@@ -25,10 +25,6 @@ public:
 		R += ToR;
 		M += ToM;
 	}
-	void Solve() {
-		double I = (5 - R) / (M - 4);
-		std::cout << "I = " << I << "\n";// БРЕД !
-	}
 	void Print() {
 		std::cout << R << " + (" << M << ")i\n";
 	}
@@ -48,8 +44,8 @@ int main()
 {
 	Complex A(5, 4);
 	Complex B(1, 1);
+	A.Add(2,2);
 	A.Sum(B);
 	A.Print();
-	A.Solve();
 	return 0;
 }
