@@ -23,9 +23,6 @@
     <ClInclude Include="MatrxForm.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Functions.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Matrices.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
